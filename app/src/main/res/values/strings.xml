@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EffectiveMobile-test</string>
+    <string name="enter">Вход</string>
+    <string name="surname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="to_enter">Нажимая кнопку “Войти”, Вы принимаете\n<u>условия программы лояльности</u></string>
+    <string name="enter_btn">Войти</string>
+</resources>
