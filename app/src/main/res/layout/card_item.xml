@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    app:strokeColor="@color/light_grey"
+    app:strokeWidth="@dimen/card_stroke_width"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_pic_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+        
+        <Button
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/favorite_selector"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+            android:id="@+id/tv_old_price"
+            style="?attr/textAppearanceTitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pager"
+            tools:text="899 P" />
+
+        <TextView
+            android:id="@+id/tv_new_price"
+            style="?attr/textAppearanceTitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_old_price"
+            tools:text="549 P" />
+
+        <TextView
+            android:id="@+id/tv_discount_percent"
+            style="?attr/textAppearanceTitleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/discount_background"
+            android:paddingHorizontal="@dimen/spacing6"
+            android:paddingVertical="@dimen/spacing3"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
+            app:layout_constraintStart_toEndOf="@id/tv_new_price"
+            app:layout_constraintTop_toTopOf="@id/tv_new_price"
+            tools:text="-39%" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="?attr/textAppearanceTitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing2"
+            android:textSize="@dimen/txt12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_new_price"
+            tools:text="A'PIEU" />
+
+        <TextView
+            android:id="@+id/tv_subtitle"
+            style="?attr/textAppearanceBodySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing2"
+            android:layout_marginHorizontal="@dimen/spacing6"
+            android:textSize="@dimen/txt10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lineHeight="@dimen/line12"
+            tools:text="Пенка для умывания`A`PIEU` `DEEP CLEAN` 200 мл" />
+
+        <LinearLayout
+            android:id="@+id/rating_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing4">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_type_small_star__state_default"
+                app:tint="@color/orange" />
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="4.3"
+                style="?attr/textAppearanceTitleSmall"
+                android:textColor="@color/orange"
+                android:layout_marginHorizontal="@dimen/spacing2"/>
+
+            <TextView
+                android:id="@+id/tv_comments_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="(4)"
+                style="?attr/textAppearanceTitleSmall"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            style="?attr/materialIconButtonFilledStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/icon_type_plus__state_default"
+            android:background="@drawable/add_button_shape"
+            android:layout_marginTop="@dimen/spacing3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rating_layout"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

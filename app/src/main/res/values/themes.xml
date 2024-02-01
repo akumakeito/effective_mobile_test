@@ -8,6 +8,12 @@
         <item name="colorError">@color/orange</item>
         <item name="colorContainer">@color/pink</item>
         <item name="colorOnSurface">@color/light_pink</item>
+        <item name="colorSurfaceContainerHighest">@color/white</item>
+        <item name="colorOnSecondaryContainer">@color/pink</item>
+        <item name="colorOnSurfaceVariant">@color/dark_grey</item>
+        <item name="colorSurfaceContainer">@color/white</item>
+
+        <item name="bottomNavigationStyle">@style/NavBarStyle</item>
 
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
@@ -16,10 +22,19 @@
 
         <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
         <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.App.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.App.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.App.LabelMedium</item>
 
         <item name="textInputOutlinedStyle">@style/OutlinedTextField</item>
 
         <item name="materialButtonStyle">@style/Widget.App.Button.</item>
+        <item name="borderlessButtonStyle">@style/Widget.App.TextButton.Icon</item>
+
+        <item name="chipStyle">@style/Widget.App.Chip.Assist</item>
+
+        <item name="materialIconButtonFilledStyle">@style/Widget.App.IconButton.Filled</item>
     </style>
 
     <style name="Theme.EffectiveMobiletest" parent="Base.Theme.EffectiveMobiletest" />

@@ -6,4 +6,13 @@
     <string name="phone_number">Номер телефона</string>
     <string name="to_enter">Нажимая кнопку “Войти”, Вы принимаете\n<u>условия программы лояльности</u></string>
     <string name="enter_btn">Войти</string>
+    <string name="catalog">Каталог</string>
+    <string name="by_popular">По популярности</string>
+    <string name="by_price_decrease">По уменьшению цены</string>
+    <string name="by_price_increase">По возрастанию цены</string>
+    <string name="filters">Фильтры</string>
+    <string name="main">Главная</string>
+    <string name="cart">Корзина</string>
+    <string name="discount">Акции</string>
+    <string name="profile">Профиль</string>
 </resources>

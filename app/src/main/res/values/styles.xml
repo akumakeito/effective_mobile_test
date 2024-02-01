@@ -3,30 +3,67 @@
 
 
     <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
-        <item name="materialThemeOverlay">@style/AppBarLayoutStyle</item>
-        <item name="titleTextAppearance">@style/TextAppearance.App.TitleMedium</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.TitleLarge</item>
         <item name="titleCentered">true</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="TextAppearance.App.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
         <item name="fontFamily">@font/sf_pro_display_medium</item>
         <item name="android:fontFamily">@font/sf_pro_display_medium</item>
-        <item name="android:textSize">@dimen/txt20</item>
+        <item name="android:textSize">@dimen/txt16</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextAppearance.App.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
         <item name="fontFamily">@font/sf_pro_display_medium</item>
         <item name="android:fontFamily">@font/sf_pro_display_medium</item>
-        <item name="android:textSize">@dimen/txt16</item>
+        <item name="android:textSize">@dimen/txt14</item>
 
     </style>
 
-
-    <style name="AppBarLayoutStyle" parent="Widget.Design.AppBarLayout">
-        <item name="android:background">@color/white</item>
+    <style name="TextAppearance.App.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">@dimen/txt9</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
 
-    <style name="Widget.Material3.Toolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="TextAppearance.App.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">@dimen/txt10</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/sf_pro_display_medium</item>
+        <item name="android:fontFamily">@font/sf_pro_display_medium</item>
+        <item name="android:textSize">@dimen/txt14</item>
+    </style>
+
+    <style name="TextAppearance.App.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">@dimen/txt10</item>
+        <item name="android:textColor">@color/dark_grey</item>
+    </style>
+
+
+
+    <style name="Widget.App.IconButton.Filled" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="iconSize">32dp</item>
+        <item name="android:minWidth">@dimen/add_button_size</item>
+        <item name="android:paddingLeft">@dimen/spacing4</item>
+        <item name="android:paddingRight">@dimen/spacing4</item>
+        <item name="android:paddingTop">@dimen/spacing4</item>
+        <item name="android:paddingBottom">@dimen/spacing4</item>
+        <item name="iconPadding">3dp</item>
+    </style>
+
+
+    <style name="ToolbarText" parent="Widget.Material3.Toolbar.Surface">
         <item name="titleTextAppearance">@style/TextAppearance.App.TitleMedium</item>
     </style>
 
@@ -60,10 +97,18 @@
 
     </style>
 
+
     <style name="Widget.App.Button." parent="Widget.Material3.Button">
         <item name="android:height">@dimen/btn_height</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Small.</item>
         <item name="android:textAppearance">@style/ButtonText</item>
+    </style>
+
+    <style name="Widget.App.TextButton.Icon" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:height">@dimen/text_btn_height</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+        <item name="iconTint">@color/dark_grey</item>
+        <item name="android:textColor">@color/dark_grey</item>
     </style>
 
     <style name="ButtonText" parent="TextAppearance.Material3.LabelLarge">
@@ -73,6 +118,31 @@
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
 
+    <style name="Widget.App.Chip.Assist" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/light_grey</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="shapeAppearance">@style/ChipShape</item>
+    </style>
+
+    <style name="ChipShape" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="NavBarStyle" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/NavBarActiveItemStyle</item>
+        <item name="itemIconSize">@dimen/nav_bar_icon_size</item>
+        <item name="itemTextColor">@color/nav_bar_text_selector</item>
+        <item name="itemPaddingBottom">@dimen/spacing21</item>
+        <item name="itemPaddingTop">@dimen/spacing16</item>
+        <item name="labelVisibilityMode">labeled</item>
+
+    </style>
+
+
+    <style name="NavBarActiveItemStyle" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 
 
 

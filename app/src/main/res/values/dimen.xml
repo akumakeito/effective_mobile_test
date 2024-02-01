@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="txt24">24sp</dimen>
     <dimen name="txt20">20sp</dimen>
     <dimen name="txt16">16sp</dimen>
     <dimen name="txt14">14sp</dimen>
+    <dimen name="txt12">12sp</dimen>
+    <dimen name="line12">12sp</dimen>
     <dimen name="txt10">10sp</dimen>
-    <dimen name="input_corner_radius">8dp</dimen>
-    <dimen name="spacing16">16dp</dimen>
-    <dimen name="btn_height">51dp</dimen>
-    <dimen name="spacing32">32dp</dimen>
-    <dimen name="spacing36">36dp</dimen>
+    <dimen name="txt9">9sp</dimen>
 
+    <dimen name="input_corner_radius">8dp</dimen>
+    <dimen name="corner_radius_8">8dp</dimen>
+    <dimen name="discount_corner_radius">4dp</dimen>
+
+    <dimen name="btn_height">51dp</dimen>
+    <dimen name="text_btn_height">24dp</dimen>
+
+    <dimen name="spacing2">2dp</dimen>
+    <dimen name="spacing3">3dp</dimen>
+    <dimen name="spacing4">4dp</dimen>
+    <dimen name="spacing16">16dp</dimen>
+    <dimen name="spacing32">32dp</dimen>
+    <dimen name="spacing22">22dp</dimen>
+    <dimen name="spacing21">21dp</dimen>
+    <dimen name="spacing36">36dp</dimen>
+    <dimen name="spacing6">6dp</dimen>
+    <dimen name="spacing8">8dp</dimen>
+
+    <dimen name="nav_bar_icon_size">24dp</dimen>
+
+    <dimen name="card_width">168dp</dimen>
+    <dimen name="card_stroke_width">1dp</dimen>
+    <dimen name="item_pic_height">144dp</dimen>
+    <dimen name="add_button_size">32dp</dimen>
 </resources>
