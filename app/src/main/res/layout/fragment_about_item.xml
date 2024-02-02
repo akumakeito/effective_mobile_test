@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="?attr/toolbarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:menu="@menu/top_app_bar_about_item_menu"
+                app:navigationIcon="@drawable/icon_type_left_arrow__state_default" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:padding="@dimen/spacing16">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="368dp"
+                    android:nestedScrollingEnabled="true"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing5"
+                    android:layout_marginBottom="@dimen/spacing21"
+                    android:src="@drawable/icon_type_question__state_default"
+                    app:layout_constraintBottom_toBottomOf="@id/pager"
+                    app:layout_constraintStart_toStartOf="@id/pager" />
+
+                <Button
+                    android:id="@+id/btn_favorite"
+                    style="?attr/materialIconButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/favorite_selector"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/pager"
+                    android:contentDescription="@string/favorite"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pager"
+                    app:tabBackground="@drawable/tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing6"
+                    android:layout_marginTop="@dimen/spacing2"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/txt12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                    tools:text="A'PIEU" />
+
+                <TextView
+                    android:id="@+id/tv_subtitle"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing6"
+                    android:layout_marginTop="@dimen/spacing8"
+                    android:textSize="@dimen/txt20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:lineHeight="@dimen/txt20"
+                    tools:text="Пенка для умывания`A`PIEU` `DEEP CLEAN` 200 мл" />
+
+                <TextView
+                    android:id="@+id/tv_available_items"
+                    style="?attr/textAppearanceBodyMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing10"
+                    android:text="@string/available_items"
+                    android:textColor="@color/grey"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+                    tools:text="Доступно для заказа 30 штук" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/spacing10"
+                    app:dividerColor="@color/light_grey"
+                    app:layout_constraintTop_toBottomOf="@id/tv_available_items" />
+
+                <LinearLayout
+                    android:id="@+id/rating_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing4"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider">
+
+                    <RatingBar
+                        style="?attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                    <TextView
+                        android:id="@+id/tv_rating"
+                        style="?attr/textAppearanceBodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/spacing8"
+                        android:textColor="@color/grey"
+                        tools:text="4.3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing6"
+                        android:text="@string/dot_symbol"
+                        android:textColor="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/tv_comments_num"
+                        style="?attr/textAppearanceTitleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_number"
+                        tools:text="4 отзыва" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_new_price"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_paddingStart="@dimen/spacing6"
+                    android:layout_marginTop="@dimen/spacing16"
+                    android:textSize="@dimen/txt24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rating_layout"
+                    tools:text="549 P" />
+
+                <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+                    android:id="@+id/tv_old_price"
+                    style="?attr/textAppearanceTitleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing12"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
+                    app:layout_constraintStart_toEndOf="@id/tv_new_price"
+                    app:layout_constraintTop_toTopOf="@id/tv_new_price"
+                    tools:text="899 P" />
+
+                <TextView
+                    android:id="@+id/tv_discount_percent"
+                    style="?attr/textAppearanceTitleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/spacing14"
+                    android:background="@drawable/discount_background"
+                    android:paddingHorizontal="@dimen/spacing6"
+                    android:paddingVertical="@dimen/spacing3"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
+                    app:layout_constraintStart_toEndOf="@id/tv_old_price"
+                    app:layout_constraintTop_toTopOf="@id/tv_new_price"
+                    tools:text="-39%" />
+
+                <TextView
+                    android:id="@+id/tv_desc_header"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing24"
+                    android:text="@string/description"
+                    android:textSize="@dimen/txt24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_new_price" />
+
+                <LinearLayout
+                    android:id="@+id/container_full_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_desc_header">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btn_brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_items_height"
+                        android:layout_marginTop="@dimen/spacing16"
+                        android:background="@drawable/profile_items_shape"
+                        android:checkable="true"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:id="@+id/tv_brand"
+                            style="?attr/textAppearanceTitleMedium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/spacing10"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_chainStyle="packed"
+                            tools:text="A'PIEU" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/spacing16"
+                            android:src="@drawable/icon_type_right_arrow__state_default"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        style="?attr/textAppearanceBodyMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing8"
+                        tools:text="Пенка для лица Глубокое очищение содержит минеральную воду и соду, способствует глубокому очищению пор от различных загрязнений, контролирует работу сальных желез, сужает поры. Обладает мягким антисептическим действием, не пересушивая кожу. Минеральная вода тонизирует и смягчает кожу." />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tv_hide_or_show_desc"
+                    style="?attr/textAppearanceLabelLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/spacing10"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/hide"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/txt12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container_full_description" />
+
+                <TextView
+                    android:id="@+id/tv_characteristics_header"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing34"
+                    android:text="@string/Characteristics"
+                    android:textSize="@dimen/txt24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hide_or_show_desc" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_characteristics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_characteristics_header"
+                    tools:listitem="@layout/characteristics_item" />
+
+                <TextView
+                    android:id="@+id/tv_ingredients_header"
+                    style="?attr/textAppearanceTitleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing34"
+                    android:text="@string/ingredients"
+                    android:textSize="@dimen/txt24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_characteristics" />
+
+                <ImageView
+                    android:id="@+id/btn_copy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_type_copy__state_default"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_ingredients_header"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_ingredients_header" />
+
+                <TextView
+                    android:id="@+id/tv_ingredients"
+                    style="?attr/textAppearanceBodyMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing16"
+                    android:ellipsize="end"
+                    android:lines="2"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients_header"
+                    tools:text="Water, Propylene Glycol, Dipropylene Glycol, Lauric acid, Myristic Acid, Potassium Hydroxide, Lauryl Hydroxysultaine, Potassium Cocoate, Potassium Cocoyl Glycinate, Sodium Chloride, Glycerin, Phenoxyethanol, Chlorphenesin, Fragrance, Caprylyl Glycol, Ethylhexylglycerin, Capric acid, Palmitic Acid, Disodium EDTA, Sodium Bicarbonate, Cocamidopropyl Betaine, Butylene Glycol." />
+
+
+                <TextView
+                    android:id="@+id/tv_hide_or_show_ingr"
+                    style="?attr/textAppearanceLabelLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/spacing10"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/show"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/txt12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_ingredients" />
+
+                <LinearLayout
+                    android:id="@+id/btn_add_to_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_height"
+                    android:layout_marginTop="@dimen/spacing32"
+                    android:layout_marginBottom="@dimen/spacing8"
+                    android:background="@drawable/add_to_cart_item_button_shape"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spacing16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hide_or_show_ingr">
+
+                    <TextView
+                        android:id="@+id/tv_new_price_on_btn"
+                        style="?attr/textAppearanceLabelLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        tools:text="549 P" />
+
+                    <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+                        android:id="@+id/tv_old_price_on_btn"
+                        style="?attr/textAppearanceLabelMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing8"
+                        android:textColor="@color/light_pink"
+                        tools:text="899 P" />
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        style="?attr/textAppearanceLabelLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing16"
+                        android:gravity="end"
+                        android:textColor="@color/white"
+                        tools:text="@string/add_to_cart" />
+
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,4 +15,25 @@
     <string name="cart">Корзина</string>
     <string name="discount">Акции</string>
     <string name="profile">Профиль</string>
+    <string name="user_profile">Личный кабинет</string>
+    <string name="favorite">Избранное</string>
+    <string name="item_number">%1d %2s</string>
+    <string name="available_items">Доступно для заказа %1d %2s</string>
+    <string name="shops">Магазины</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="item_refund">Возврат товара</string>
+    <string name="exit">Выйти</string>
+    <string name="dot_symbol">·</string>
+    <string name="description">Описание</string>
+    <string name="offer">Оферта</string>
+    <string name="hide">Скрыть</string>
+    <string name="Characteristics">Характеристики</string>
+    <string name="ingredients">Состав</string>
+    <string name="show">Подробнее</string>
+    <string name="add_to_cart">Добавить в корзину</string>
+    <string-array name="sorting">
+        <item>@string/by_popular</item>
+        <item>@string/by_price_decrease</item>
+        <item>@string/by_price_increase</item>
+    </string-array>
 </resources>

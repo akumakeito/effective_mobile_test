@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/share_item"
+        android:icon="@drawable/icon_type_send__state_default"
+        android:title="share" />
+</menu>

@@ -14,14 +14,21 @@
     <dimen name="discount_corner_radius">4dp</dimen>
 
     <dimen name="btn_height">51dp</dimen>
+    <dimen name="profile_items_height">49dp</dimen>
     <dimen name="text_btn_height">24dp</dimen>
 
     <dimen name="spacing2">2dp</dimen>
     <dimen name="spacing3">3dp</dimen>
     <dimen name="spacing4">4dp</dimen>
+    <dimen name="spacing5">5dp</dimen>
+    <dimen name="spacing10">10dp</dimen>
+    <dimen name="spacing12">12dp</dimen>
+    <dimen name="spacing14">14dp</dimen>
     <dimen name="spacing16">16dp</dimen>
     <dimen name="spacing32">32dp</dimen>
+    <dimen name="spacing34">34dp</dimen>
     <dimen name="spacing22">22dp</dimen>
+    <dimen name="spacing24">24dp</dimen>
     <dimen name="spacing21">21dp</dimen>
     <dimen name="spacing36">36dp</dimen>
     <dimen name="spacing6">6dp</dimen>

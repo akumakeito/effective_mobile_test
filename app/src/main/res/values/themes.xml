@@ -12,6 +12,7 @@
         <item name="colorOnSecondaryContainer">@color/pink</item>
         <item name="colorOnSurfaceVariant">@color/dark_grey</item>
         <item name="colorSurfaceContainer">@color/white</item>
+        <item name="materialIconButtonFilledTonalStyle">@style/Widget.App.Button.TonalButton</item>
 
         <item name="bottomNavigationStyle">@style/NavBarStyle</item>
 
@@ -23,11 +24,14 @@
         <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
         <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
         <item name="textAppearanceTitleSmall">@style/TextAppearance.App.TitleSmall</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.App.BodyMedium</item>
         <item name="textAppearanceBodySmall">@style/TextAppearance.App.BodySmall</item>
         <item name="textAppearanceLabelLarge">@style/TextAppearance.App.LabelLarge</item>
         <item name="textAppearanceLabelMedium">@style/TextAppearance.App.LabelMedium</item>
 
         <item name="textInputOutlinedStyle">@style/OutlinedTextField</item>
+
+        <item name="ratingBarStyleSmall">@style/Widget.App.RatingBar.Small</item>
 
         <item name="materialButtonStyle">@style/Widget.App.Button.</item>
         <item name="borderlessButtonStyle">@style/Widget.App.TextButton.Icon</item>

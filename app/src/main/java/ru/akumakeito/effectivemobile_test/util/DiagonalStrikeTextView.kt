@@ -17,7 +17,7 @@ class DiagonalStrikeTextView @JvmOverloads constructor(
     init {
         paint.apply {
             color = context.getColor(R.color.grey)
-            strokeWidth = 1f
+            strokeWidth = 2f
             isAntiAlias  = true
         }
     }
@@ -25,7 +25,7 @@ class DiagonalStrikeTextView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.drawLine(0f, 0.5f, width.toFloat(), height.toFloat(), paint)
+        canvas.drawLine(0f, height.toFloat(), width.toFloat(), 0f, paint)
 
     }
 
