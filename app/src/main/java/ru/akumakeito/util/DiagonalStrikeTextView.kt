@@ -1,4 +1,4 @@
-package ru.akumakeito.effectivemobile_test.util
+package ru.akumakeito.util
 
 import android.content.Context
 import android.graphics.Canvas

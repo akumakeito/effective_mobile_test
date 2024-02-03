@@ -172,14 +172,14 @@
                     style="?attr/textAppearanceTitleLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_paddingStart="@dimen/spacing6"
+                    android:layout_marginStart="@dimen/spacing6"
                     android:layout_marginTop="@dimen/spacing16"
                     android:textSize="@dimen/txt24"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rating_layout"
                     tools:text="549 P" />
 
-                <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+                <ru.akumakeito.util.DiagonalStrikeTextView
                     android:id="@+id/tv_old_price"
                     style="?attr/textAppearanceTitleSmall"
                     android:layout_width="wrap_content"
@@ -371,7 +371,7 @@
                         android:textColor="@color/white"
                         tools:text="549 P" />
 
-                    <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+                    <ru.akumakeito.util.DiagonalStrikeTextView
                         android:id="@+id/tv_old_price_on_btn"
                         style="?attr/textAppearanceLabelMedium"
                         android:layout_width="wrap_content"

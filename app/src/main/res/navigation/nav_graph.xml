@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentHome">
+
+    <fragment
+        android:id="@+id/fragmentAboutItem"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentAboutItem"
+        android:label="FragmentAboutItem" />
+    <fragment
+        android:id="@+id/fragmentCart"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentCart"
+        android:label="FragmentCart" />
+    <fragment
+        android:id="@+id/fragmentCatalog"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentCatalog"
+        android:label="FragmentCatalog" />
+    <fragment
+        android:id="@+id/fragmentDiscounts"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentDiscounts"
+        android:label="FragmentDiscounts" />
+    <fragment
+        android:id="@+id/fragmentEnterAccount"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentEnterAccount"
+        android:label="FragmentEnterAccount" />
+    <fragment
+        android:id="@+id/fragmentFavorite"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentFavorite"
+        android:label="FragmentFavorite" />
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentHome"
+        android:label="FragmentHome" />
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentProfile"
+        android:label="FragmentProfile" />
+</navigation>

@@ -44,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <ru.akumakeito.effectivemobile_test.util.DiagonalStrikeTextView
+        <ru.akumakeito.util.DiagonalStrikeTextView
             android:id="@+id/tv_old_price"
             style="?attr/textAppearanceTitleSmall"
             android:layout_width="wrap_content"
