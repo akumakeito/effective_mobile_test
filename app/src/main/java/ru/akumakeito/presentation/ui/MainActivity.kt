@@ -1,76 +1,51 @@
 package ru.akumakeito.presentation.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.ActivityMainBinding
+import ru.akumakeito.presentation.viewmodel.UserViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+    private val userViewModel: UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
         supportActionBar?.hide()
 
-        setContentView(R.layout.activity_main)
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.bottomNavigation
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host) as NavHostFragment
 
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
+
 
         val bottomNavView = binding.bottomNavigation
-
-        bottomNavView.setupWithNavController(navController)
-
+        setupWithNavController(bottomNavView, navController)
 
 
-        NavigationBarView.OnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.fragmentHome -> {
-                    navController.navigate(R.id.fragmentHome)
-                    true
-                }
-                R.id.fragmentCatalog -> {
-                    navController.navigate(R.id.fragmentCatalog)
-                    true
-                }
-
-                R.id.fragmentCart -> {
-                    navController.navigate(R.id.fragmentCart)
-                    true
-                }
-
-                R.id.fragmentDiscounts -> {
-                    navController.navigate(R.id.fragmentDiscounts)
-                    true
-                }
-
-                R.id.fragmentProfile -> {
-                    navController.navigate(R.id.fragmentProfile)
-                    true
-                }
-                else -> false
+        userViewModel.isSigned.observe(this) {
+            Log.d("registrationprob", "is signed ${it}")
+            if (it == false) {
+                bottomNavView.visibility = View.GONE
+                navController.navigate(R.id.fragmentEnterAccount)
+            } else {
+                bottomNavView.visibility = View.VISIBLE
+                navController.navigate(R.id.fragmentHome)
             }
         }
-
-        navView.setupWithNavController(navController)
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

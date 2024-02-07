@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragmentHome">
 
@@ -15,7 +16,11 @@
     <fragment
         android:id="@+id/fragmentCatalog"
         android:name="ru.akumakeito.presentation.ui.fragments.FragmentCatalog"
-        android:label="FragmentCatalog" />
+        android:label="FragmentCatalog" >
+        <action
+            android:id="@+id/action_fragmentCatalog_to_fragmentAboutItem"
+            app:destination="@id/fragmentAboutItem" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentDiscounts"
         android:name="ru.akumakeito.presentation.ui.fragments.FragmentDiscounts"
@@ -35,5 +40,23 @@
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="ru.akumakeito.presentation.ui.fragments.FragmentProfile"
-        android:label="FragmentProfile" />
+        android:label="FragmentProfile" >
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentFavorite"
+            app:destination="@id/fragmentFavorite" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFavoriteContainer"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentFavoriteContainer"
+        android:label="fragment_favorite_container"
+        tools:layout="@layout/fragment_favorite_container" >
+        <action
+            android:id="@+id/action_fragmentFavoriteContainer_to_fragmentAboutItem"
+            app:destination="@id/fragmentAboutItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFavoriteBrands"
+        android:name="ru.akumakeito.presentation.ui.fragments.FragmentFavoriteBrands"
+        android:label="fragment_favorite_brands"
+        tools:layout="@layout/fragment_favorite_brands" />
 </navigation>

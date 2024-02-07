@@ -10,7 +10,7 @@ data class ProductDTO(
     val title: String,
     val subtitle: String,
     val price: Price,
-    val feedback: Feedback,
+    val feedback: Feedback?,
     val tags: List<Tags>,
     val available: Int,
     val description: String,

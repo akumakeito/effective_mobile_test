@@ -7,6 +7,9 @@
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
+    android:id="@+id/item_card"
+    android:layout_marginTop="@dimen/spacing2"
+    android:layout_marginEnd="@dimen/spacing2"
     app:strokeColor="@color/light_grey"
     app:strokeWidth="@dimen/card_stroke_width"
     app:cardBackgroundColor="@color/white"
@@ -14,35 +17,47 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
+        <ImageView
+            android:id="@+id/item_images"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_pic_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/item_1"/>
+
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/item_images"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/item_pic_height"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"/>-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/pager"
+            app:layout_constraintBottom_toBottomOf="@id/item_images"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tabBackground="@drawable/tab_selector"
+            app:tabIndicatorAnimationMode="elastic"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp" />
-        
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_favorite"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checkable="true"
             app:icon="@drawable/favorite_selector"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ru.akumakeito.util.DiagonalStrikeTextView
             android:id="@+id/tv_old_price"
@@ -51,8 +66,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing6"
             android:layout_marginTop="@dimen/spacing6"
+            android:text="@string/price_with_unit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pager"
+            app:layout_constraintTop_toBottomOf="@id/item_images"
             tools:text="899 P" />
 
         <TextView
@@ -60,6 +76,7 @@
             style="?attr/textAppearanceTitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/price_with_unit"
             android:layout_marginStart="@dimen/spacing6"
             android:layout_marginTop="@dimen/spacing2"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +92,7 @@
             android:background="@drawable/discount_background"
             android:paddingHorizontal="@dimen/spacing6"
             android:paddingVertical="@dimen/spacing3"
+            android:text="@string/discount_percent"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
             app:layout_constraintStart_toEndOf="@id/tv_new_price"
@@ -116,6 +134,7 @@
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/barrier"
             android:layout_marginStart="@dimen/spacing6"
             android:layout_marginTop="@dimen/spacing4">
 
@@ -142,6 +161,13 @@
                 style="?attr/textAppearanceTitleSmall"/>
         </LinearLayout>
 
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="btn_add_to_cart"/>
+
         <Button
             android:id="@+id/btn_add_to_cart"
             style="?attr/materialIconButtonFilledStyle"
@@ -151,8 +177,7 @@
             android:background="@drawable/add_button_shape"
             android:layout_marginTop="@dimen/spacing3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rating_layout"/>
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 

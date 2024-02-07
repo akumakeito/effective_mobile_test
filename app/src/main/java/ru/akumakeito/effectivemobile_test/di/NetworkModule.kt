@@ -5,13 +5,15 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.akumakeito.effectivemobile_test.data.dao.Converters
 import ru.akumakeito.network.ProductApiService
+import ru.akumakeito.util.Constants.Companion.BASE_URL
 import javax.inject.Singleton
 
-const val BASE_URL = "https://run.mocky.io/"
+
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -23,7 +25,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideConverters(gson: Gson) : Converters = Converters(gson)
+    fun provideConverters(gson: Gson): Converters = Converters(gson)
+
+
+    @Provides
+    @Singleton
+    fun providesOkHttp() = OkHttpClient.Builder()
+        .build()
+
+
     @Provides
     fun provideProductApiService(gson: Gson): ProductApiService = Retrofit.Builder()
         .baseUrl(BASE_URL)

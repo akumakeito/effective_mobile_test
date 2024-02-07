@@ -16,6 +16,7 @@
     <dimen name="btn_height">51dp</dimen>
     <dimen name="profile_items_height">49dp</dimen>
     <dimen name="text_btn_height">24dp</dimen>
+    <dimen name="favorite_icon_size">20dp</dimen>
 
     <dimen name="spacing2">2dp</dimen>
     <dimen name="spacing3">3dp</dimen>

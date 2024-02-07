@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="ru.akumakeito.presentation.ui.fragments.FragmentAboutItem">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +22,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="?attr/actionBarSize"
-                app:menu="@menu/top_app_bar_about_item_menu"
-                app:navigationIcon="@drawable/icon_type_left_arrow__state_default" />
+                app:navigationIcon="@drawable/icon_type_left_arrow__state_default">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_type_send__state_default"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/spacing16"/>
+            </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -36,16 +44,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/pager"
+                <ImageView
+                    android:id="@+id/item_images"
                     android:layout_width="match_parent"
-                    android:layout_height="368dp"
-                    android:nestedScrollingEnabled="true"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                    android:layout_height="@dimen/item_pic_height"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/item_1"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -53,17 +60,18 @@
                     android:layout_marginStart="@dimen/spacing5"
                     android:layout_marginBottom="@dimen/spacing21"
                     android:src="@drawable/icon_type_question__state_default"
-                    app:layout_constraintBottom_toBottomOf="@id/pager"
-                    app:layout_constraintStart_toStartOf="@id/pager" />
+                    app:layout_constraintBottom_toBottomOf="@id/item_images"
+                    app:layout_constraintStart_toStartOf="@id/item_images" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_favorite"
                     style="?attr/materialIconButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checkable="true"
                     app:icon="@drawable/favorite_selector"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/pager"
+                    app:layout_constraintTop_toTopOf="@id/item_images"
                     android:contentDescription="@string/favorite"/>
 
                 <com.google.android.material.tabs.TabLayout
@@ -72,7 +80,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pager"
+                    app:layout_constraintTop_toBottomOf="@id/item_images"
                     app:tabBackground="@drawable/tab_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp" />
@@ -136,8 +144,10 @@
                     app:layout_constraintTop_toBottomOf="@id/divider">
 
                     <RatingBar
+                        android:id="@+id/ratingBar"
                         style="?attr/ratingBarStyleSmall"
                         android:layout_width="wrap_content"
+                        android:isIndicator="true"
                         android:layout_height="wrap_content" />
 
 
@@ -170,6 +180,7 @@
                 <TextView
                     android:id="@+id/tv_new_price"
                     style="?attr/textAppearanceTitleLarge"
+                    android:text="@string/price_with_unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing6"
@@ -185,6 +196,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing12"
+                    android:text="@string/price_with_unit"
                     app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
                     app:layout_constraintStart_toEndOf="@id/tv_new_price"
                     app:layout_constraintTop_toTopOf="@id/tv_new_price"
@@ -199,6 +211,7 @@
                     android:background="@drawable/discount_background"
                     android:paddingHorizontal="@dimen/spacing6"
                     android:paddingVertical="@dimen/spacing3"
+                    android:text="@string/discount_percent"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/tv_new_price"
                     app:layout_constraintStart_toEndOf="@id/tv_old_price"
@@ -294,11 +307,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_hide_or_show_desc" />
 
-                <androidx.recyclerview.widget.RecyclerView
+
+                <ListView
                     android:id="@+id/rv_characteristics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing16"
+                    android:layout_marginTop="12dp"
+                    android:clickable="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_characteristics_header"
                     tools:listitem="@layout/characteristics_item" />
@@ -329,8 +345,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing16"
-                    android:ellipsize="end"
-                    android:lines="2"
                     app:layout_constraintTop_toBottomOf="@id/tv_ingredients_header"
                     tools:text="Water, Propylene Glycol, Dipropylene Glycol, Lauric acid, Myristic Acid, Potassium Hydroxide, Lauryl Hydroxysultaine, Potassium Cocoate, Potassium Cocoyl Glycinate, Sodium Chloride, Glycerin, Phenoxyethanol, Chlorphenesin, Fragrance, Caprylyl Glycol, Ethylhexylglycerin, Capric acid, Palmitic Acid, Disodium EDTA, Sodium Bicarbonate, Cocamidopropyl Betaine, Butylene Glycol." />
 
@@ -368,6 +382,7 @@
                         style="?attr/textAppearanceLabelLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/price_with_unit"
                         android:textColor="@color/white"
                         tools:text="549 P" />
 
@@ -378,6 +393,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/spacing8"
                         android:textColor="@color/light_pink"
+                        android:text="@string/price_with_unit"
                         tools:text="899 P" />
 
                     <FrameLayout
@@ -392,12 +408,8 @@
                         android:layout_marginStart="@dimen/spacing16"
                         android:gravity="end"
                         android:textColor="@color/white"
-                        tools:text="@string/add_to_cart" />
-
-
+                        android:text="@string/add_to_cart" />
                 </LinearLayout>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

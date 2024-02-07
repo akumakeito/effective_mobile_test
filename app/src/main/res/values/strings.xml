@@ -17,13 +17,17 @@
     <string name="profile">Профиль</string>
     <string name="user_profile">Личный кабинет</string>
     <string name="favorite">Избранное</string>
-    <string name="item_number">%1d %2s</string>
-    <string name="available_items">Доступно для заказа %1d %2s</string>
+    <string name="item_number">%1$d %2$s</string>
+    <string name="available_items">Доступно для заказа %1$d %2$s</string>
+    <string name="discount_percent">-%1$d%%</string>
     <string name="shops">Магазины</string>
     <string name="feedback">Обратная связь</string>
+    <string name="feedback_count">(%1$d)</string>
     <string name="item_refund">Возврат товара</string>
     <string name="exit">Выйти</string>
     <string name="dot_symbol">·</string>
+    <string name="price_with_unit">%1$d %2$s</string>
+    <string name="name_surname">%1$s %2$s</string>
     <string name="description">Описание</string>
     <string name="offer">Оферта</string>
     <string name="hide">Скрыть</string>
@@ -31,9 +35,19 @@
     <string name="ingredients">Состав</string>
     <string name="show">Подробнее</string>
     <string name="add_to_cart">Добавить в корзину</string>
+    <string name="showAll">Смотреть все</string>
+    <string name="face">Лицо</string>
+    <string name="body">Тело</string>
+    <string name="suntan">Загар</string>
+    <string name="mask">Маски</string>
+    <string name="goods">Товары</string>
+    <string name="brands">Бренды</string>
     <string-array name="sorting">
         <item>@string/by_popular</item>
         <item>@string/by_price_decrease</item>
         <item>@string/by_price_increase</item>
     </string-array>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="country_code">+7</string>
+
 </resources>

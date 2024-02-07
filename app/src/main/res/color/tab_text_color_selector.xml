@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:color="@color/grey"
+        android:state_enabled="false"/>
+
+    <!-- Selected -->
+    <item android:color="@color/black"
+        android:state_selected="true"/>
+
+    <!-- Not selected -->
+    <item android:color="@color/grey"/>
+</selector>

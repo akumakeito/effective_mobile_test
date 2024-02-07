@@ -12,13 +12,18 @@ import javax.inject.Inject
 class Converters @Inject constructor(val gson : Gson) {
 
     @TypeConverter
-    fun fromTagsList(tags : List<Tags>) = gson.toJson(tags)
+    fun fromTagsList(tags : List<Tags>) :String {
+        val type = object : TypeToken<List<Tags>>() {}.type
+        return gson.toJson(tags, type)
+    }
 
     @TypeConverter
     fun toTagsList(tagsString : String) : List<Tags> {
         val listType = object : TypeToken<List<Tags>>() {}.type
         return gson.fromJson(tagsString, listType)
     }
+
+
 
     @TypeConverter
     fun fromProductInfoList(productInfo : List<ProductInfo>) = gson.toJson(productInfo)
@@ -34,7 +39,7 @@ class Converters @Inject constructor(val gson : Gson) {
 
     @TypeConverter
     fun toImageList(imageListString : String) : List<Int> {
-        val listType = object : TypeToken<List<ProductInfo>>() {}.type
+        val listType = object : TypeToken<List<Int>>() {}.type
         return gson.fromJson(imageListString, listType)
     }
 

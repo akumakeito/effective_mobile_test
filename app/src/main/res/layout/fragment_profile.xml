@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="ru.akumakeito.presentation.ui.fragments.FragmentProfile">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -75,7 +76,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="@dimen/spacing16"/>
+            android:layout_marginEnd="@dimen/spacing16"
+            android:contentDescription="TODO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

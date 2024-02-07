@@ -9,6 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
+        android:id="@+id/info_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Артикул товара"
@@ -16,6 +17,7 @@
         style="?attr/textAppearanceBodyMedium"/>
 
     <TextView
+        android:id="@+id/info_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="end"

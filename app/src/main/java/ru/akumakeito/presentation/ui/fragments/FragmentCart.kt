@@ -1,6 +1,7 @@
 package ru.akumakeito.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class FragmentCart :Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentCartBinding.inflate(inflater, container, false)
+        Log.d("navbarproblem", "fragmentcart")
         return binding.root
     }
 }

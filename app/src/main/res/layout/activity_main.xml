@@ -6,35 +6,36 @@
     android:layout_height="match_parent"
     tools:context="ru.akumakeito.presentation.ui.MainActivity">
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:startIconDrawable="@drawable/icon_type_sort_by__state_default"-->
-<!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:startIconDrawable="@drawable/icon_type_sort_by__state_default"-->
+    <!--        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
 
-<!--        <AutoCompleteTextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            tools:text="Happy"-->
-<!--            android:inputType="none" />-->
+    <!--        <AutoCompleteTextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            tools:text="Happy"-->
+    <!--            android:inputType="none" />-->
 
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/nav_graph"
-        tools:layout="@layout/fragment_home" />
-
+        tools:layout="@layout/fragment_home"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -42,8 +43,8 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/spacing22"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

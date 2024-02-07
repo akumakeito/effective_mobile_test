@@ -19,7 +19,7 @@ data class ProductEntity(
     @Embedded
     val price : Price,
     @Embedded
-    val feedback : Feedback,
+    val feedback : Feedback?,
     val tags : List<Tags>,
     val available : Int,
     val description : String,
@@ -40,7 +40,9 @@ data class ProductEntity(
             available = productDTO.available,
             description = productDTO.description,
             info = productDTO.info,
-            ingredients = productDTO.ingredients
+            ingredients = productDTO.ingredients,
+            imageList = emptyList(),
+            isFavorite = false
         )
     }
 
@@ -62,5 +64,5 @@ data class ProductEntity(
 }
 
 fun List<ProductEntity>.toProduct() : List<Product> = map(ProductEntity::toProduct)
-fun List<ProductDTO>.toEntity() : List<ProductEntity> = map(ProductEntity::fromDto)
+fun Array<ProductDTO>.toEntity() : List<ProductEntity> = map(ProductEntity::fromDto)
 

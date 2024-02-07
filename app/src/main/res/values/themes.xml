@@ -13,6 +13,7 @@
         <item name="colorOnSurfaceVariant">@color/dark_grey</item>
         <item name="colorSurfaceContainer">@color/white</item>
         <item name="materialIconButtonFilledTonalStyle">@style/Widget.App.Button.TonalButton</item>
+        <item name="materialIconButtonStyle">@style/Widget.App.IconButton</item>
 
         <item name="bottomNavigationStyle">@style/NavBarStyle</item>
 
@@ -20,6 +21,7 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="tabStyle">@style/Widget.App.TabLayout</item>
 
         <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
         <item name="textAppearanceTitleMedium">@style/TextAppearance.App.TitleMedium</item>
@@ -36,7 +38,7 @@
         <item name="materialButtonStyle">@style/Widget.App.Button.</item>
         <item name="borderlessButtonStyle">@style/Widget.App.TextButton.Icon</item>
 
-        <item name="chipStyle">@style/Widget.App.Chip.Assist</item>
+        <item name="chipStyle">@style/ChipSuggestion</item>
 
         <item name="materialIconButtonFilledStyle">@style/Widget.App.IconButton.Filled</item>
     </style>

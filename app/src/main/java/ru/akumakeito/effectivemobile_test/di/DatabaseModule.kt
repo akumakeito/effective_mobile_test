@@ -29,6 +29,7 @@ object DatabaseModule {
         AppDb::class.java,
         "app.db"
     )
+        .fallbackToDestructiveMigration()
         .addTypeConverter(Converters(gson))
         .build()
 }

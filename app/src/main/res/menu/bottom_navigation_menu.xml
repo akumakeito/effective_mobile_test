@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_menu_main"
+        android:id="@+id/fragmentHome"
         android:enabled="true"
         android:icon="@drawable/icon_type_home__state_default"
         android:title="@string/main"/>
 
     <item
-        android:id="@+id/nav_menu_catalog"
+        android:id="@+id/fragmentCatalog"
         android:enabled="true"
         android:icon="@drawable/icon_type_catalog__state_default"
         android:title="@string/catalog"/>
 
     <item
-        android:id="@+id/nav_menu_cart"
+        android:id="@+id/fragmentCart"
         android:enabled="true"
         android:icon="@drawable/icon_type_bag__state_default"
         android:title="@string/cart"/>
 
     <item
-        android:id="@+id/nav_menu_discounts"
+        android:id="@+id/fragmentDiscounts"
         android:enabled="true"
         android:icon="@drawable/icon_type_discount__state_default"
         android:title="@string/discount"/>
 
     <item
-        android:id="@+id/nav_menu_profile"
+        android:id="@+id/fragmentProfile"
         android:enabled="true"
         android:icon="@drawable/icon_type_account__state_default"
         android:title="@string/profile"/>

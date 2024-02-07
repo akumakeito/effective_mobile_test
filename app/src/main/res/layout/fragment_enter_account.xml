@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="ru.akumakeito.presentation.ui.fragments.FragmentEnterAccount">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -35,6 +36,7 @@
         android:id="@+id/input_name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?attr/textInputOutlinedStyle"
         android:layout_marginHorizontal="@dimen/spacing16"
         android:layout_marginBottom="@dimen/spacing16"
         android:hint="@string/name"
@@ -43,6 +45,9 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eT_name"
+            style="?attr/textInputOutlinedStyle"
+            android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -53,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing16"
+        style="?attr/textInputOutlinedStyle"
         android:hint="@string/surname"
         android:layout_marginBottom="@dimen/spacing16"
         app:layout_constraintBottom_toTopOf="@id/input_phone_layout"
@@ -60,8 +66,11 @@
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eT_surname"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            style="?attr/textInputOutlinedStyle"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,19 +78,26 @@
         android:id="@+id/input_phone_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="?attr/textInputOutlinedStyle"
         android:layout_marginHorizontal="@dimen/spacing16"
         android:hint="@string/phone_number"
+        app:prefixText="@string/country_code"
+        app:placeholderText="___ ___-__-__"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"
         app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eT_phoneNumber"
+            style="?attr/textInputOutlinedStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="phone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/btn_enter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing16"

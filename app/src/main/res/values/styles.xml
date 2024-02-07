@@ -59,7 +59,6 @@
     </style>
 
 
-
     <style name="Widget.App.IconButton.Filled" parent="Widget.Material3.Button.IconButton.Filled">
         <item name="iconSize">32dp</item>
         <item name="android:minWidth">@dimen/add_button_size</item>
@@ -68,6 +67,12 @@
         <item name="android:paddingTop">@dimen/spacing4</item>
         <item name="android:paddingBottom">@dimen/spacing4</item>
         <item name="iconPadding">3dp</item>
+    </style>
+
+    <style name="Widget.App.IconButton" parent="Widget.Material3.Button.IconButton">
+        <item name="iconSize">@dimen/favorite_icon_size</item>
+        <item name="iconTint">@color/pink</item>
+        <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
     <style name="Widget.App.Button.TonalButton" parent="Widget.Material3.Button.TonalButton">
@@ -92,6 +97,7 @@
 
     <style name="OutlinedInputText" parent="TextAppearance.Material3.BodyLarge">
         <item name="android:textSize">@dimen/txt16</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
         <item name="fontFamily">@font/sf_pro_display_medium</item>
     </style>
@@ -144,7 +150,7 @@
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
 
-    <style name="Widget.App.Chip.Assist" parent="Widget.Material3.Chip.Filter">
+    <style name="ChipSuggestion" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipBackgroundColor">@color/light_grey</item>
         <item name="chipStrokeWidth">0dp</item>
         <item name="android:textColor">@color/grey</item>
@@ -171,9 +177,19 @@
     </style>
 
     <style name="Widget.App.RatingBar.Small" parent="Widget.AppCompat.RatingBar.Small">
-        <item name="colorControlNormal">@color/orange</item>
+        <item name="android:progressTint">@color/orange</item>
+        <item name="android:progressBackgroundTint">@color/orange</item>
     </style>
 
+    <style name="Widget.App.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@color/light_grey</item>
+        <item name="tabTextAppearance">@style/TextAppearance.App.TitleMedium</item>
+        <item name="tabTextColor">@color/tab_text_color_selector</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicatorGravity">center</item>
+        <item name="tabIndicatorFullWidth">true</item>
+        <item name="tabIndicator">@drawable/tab_indicator_shape</item>
+    </style>
 
 
 </resources>

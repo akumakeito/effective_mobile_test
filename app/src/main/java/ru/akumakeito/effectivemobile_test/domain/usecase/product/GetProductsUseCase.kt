@@ -1,4 +1,4 @@
-package ru.akumakeito.effectivemobile_test.domain.usecase
+package ru.akumakeito.effectivemobile_test.domain.usecase.product
 
 import ru.akumakeito.effectivemobile_test.domain.repository.ProductRepository
 import javax.inject.Inject

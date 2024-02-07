@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="ru.akumakeito.presentation.ui.fragments.FragmentCatalog">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -72,20 +73,53 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <HorizontalScrollView
+        android:id="@+id/chip_contaner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing16">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_tags"
-            android:layout_width="wrap_content"
+            android:id="@+id/chipgroup"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true">
+            app:checkedChip="@id/chipAll">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/showAll"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/face"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/body"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipSuntan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/suntan"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mask"/>
 
         </com.google.android.material.chip.ChipGroup>
+
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/card_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing16"
