@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Disabled -->
+    <item android:alpha="@dimen/m3_comp_filled_text_field_disabled_active_indicator_opacity" android:color="@color/white" android:state_enabled="false"/>
+
+    <!-- Focused -->
+    <item android:color="@color/white" android:state_focused="true"/>
+
+    <!-- Hovered -->
+    <item android:color="@color/white" android:state_hovered="true"/>
+
+    <!-- Normal -->
+    <item android:color="@color/white"/>
+</selector>

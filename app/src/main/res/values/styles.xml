@@ -102,6 +102,13 @@
         <item name="fontFamily">@font/sf_pro_display_medium</item>
     </style>
 
+    <style name="DropDownTextAppearance" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">@dimen/txt14</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+    </style>
+
     <style name="OutlinedTextField" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Small.</item>
         <item name="android:textColor">@color/black</item>
@@ -111,6 +118,14 @@
         <item name="boxBackgroundColor">@color/light_grey</item>
         <item name="boxStrokeWidth">0dp</item>
 
+    </style>
+
+    <style name="App.OutlinedBox.ExposedDropdownMenu" parent="Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="dropDownBackgroundTint">@color/white</item>
+        <item name="background">@color/white</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="boxStrokeColor">@color/box_stroke_selector</item>
+        <item name="android:textAppearance">@style/DropDownTextAppearance</item>
     </style>
 
     <style name="ShapeAppearance.Material3.Corner.Small." parent="">

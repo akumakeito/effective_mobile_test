@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -115,6 +116,13 @@ class FragmentCatalog : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sortingList = resources.getStringArray(R.array.sorting)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
+        binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
     }
 
     private fun setupChipGroupDynamically(list: List<String>) {

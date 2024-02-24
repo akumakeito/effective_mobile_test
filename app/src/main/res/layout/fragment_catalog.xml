@@ -28,36 +28,28 @@
         android:layout_marginEnd="@dimen/spacing4">
 
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/btn_sort_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            style="@style/App.OutlinedBox.ExposedDropdownMenu"
+            app:startIconCheckable="true"
+            app:startIconDrawable="@drawable/icon_type_sort_by__state_default"
+            app:endIconDrawable="@drawable/icon_type_down_arrow__state_default"
+            app:endIconMode="dropdown_menu"
             app:layout_constraintBottom_toBottomOf="@id/btn_filters"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btn_filters">
+            app:layout_constraintTop_toTopOf="@id/btn_filters"
+            android:text="@string/by_popular">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_type_sort_by__state_default" />
-
-            <TextView
-                android:id="@+id/tv_sort_by"
-                style="?attr/textAppearanceTitleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing8"
-                android:text="@string/by_popular"
-                android:textColor="@color/dark_grey" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_type_down_arrow__state_default" />
-
-        </LinearLayout>
+            <AutoCompleteTextView
+                android:id="@+id/sorting_autocomplete_tv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"
+                android:ellipsize="end"
+                android:text="@string/by_popular"                 />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_filters"
