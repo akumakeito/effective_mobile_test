@@ -58,7 +58,7 @@ class CardItemAdapter(
                     R.string.price_with_unit, product.price.price, product.price.unit
                 )
                 tvNewPrice.text = context.getString(
-                    R.string.price_with_unit, product.price.price, product.price.unit
+                    R.string.price_with_unit, product.price.priceWithDiscount, product.price.unit
                 )
                 tvDiscountPercent.text = context.getString(
                     R.string.discount_percent, product.price.discount

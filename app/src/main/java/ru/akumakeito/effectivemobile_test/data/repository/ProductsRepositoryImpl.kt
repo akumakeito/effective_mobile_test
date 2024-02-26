@@ -4,12 +4,14 @@ import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.launch
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.data.dao.ProductDao
 import ru.akumakeito.effectivemobile_test.data.model.ProductEntity
@@ -36,9 +38,10 @@ class ProductsRepositoryImpl @Inject constructor(
 
     private val _dataProduct: Flow<List<Product>> =
         dao.getAllProducts().map(List<ProductEntity>::toProduct).flowOn(Dispatchers.IO)
-
-
     override val dataProduct = _dataProduct
+
+
+    private val sortEvents = MutableSharedFlow<Unit>()
 
 
     override suspend fun addImageListToProduct() {
@@ -111,21 +114,23 @@ class ProductsRepositoryImpl @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun sortBy(sortParameter: String) {
-        Log.d("sorting", "before ${dataProduct}")
-        val sortedList =  when (sortParameter) {
-            context.getString(R.string.by_popular) -> dao.getAllSortedByPopular()
-            context.getString(R.string.by_price_decrease) -> dao.getAllSortedByPrice(false)
-            context.getString(R.string.by_price_increase) -> dao.getAllSortedByPrice(true)
-            else -> dao.getAllSortedByPopular()
-        }.map {
-            it.toProduct()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d("sorting", "before ${dataProduct}")
+            val sortedList =  when (sortParameter) {
+                context.getString(R.string.by_popular) -> dao.getAllSortedByPopular()
+                context.getString(R.string.by_price_decrease) -> dao.getAllSortedByPrice(false)
+                context.getString(R.string.by_price_increase) -> dao.getAllSortedByPrice(true)
+                else -> dao.getAllSortedByPopular()
+            }
+
+            dao.insertAllProducts(sortedList)
+
         }
 
-        _dataProduct.transform {
-            emit(sortedList)
-        }
 
     }
+
 
 
     override suspend fun deleteAll() {
