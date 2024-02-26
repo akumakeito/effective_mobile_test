@@ -1,6 +1,5 @@
 package ru.akumakeito.presentation.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,8 +25,6 @@ class FragmentCatalog : Fragment() {
 
     val productViewModel: ProductViewModel by viewModels()
     private lateinit var binding: FragmentCatalogBinding
-    private var touchX = 0
-    private var touchY = 0
 
 
     override fun onCreateView(
@@ -55,41 +50,11 @@ class FragmentCatalog : Fragment() {
         })
 
 
-        binding.btnSortBy.setOnClickListener {
-            touchX = it.x.toInt()
-            touchY = it.y.toInt()
+        binding.sortingAutocompleteTv.setOnItemClickListener { parent, _, position, _ ->
+            val selectedItem = parent.getItemAtPosition(position).toString()
+            Log.d("sorting", "actv ${selectedItem}")
 
-            val inflaterPopup =
-                requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-            val popupView = inflaterPopup.inflate(R.layout.layout_sort_menu, null)
-
-            val popupWindow = PopupWindow(
-                popupView,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                true
-            )
-
-            popupWindow.showAsDropDown(it, touchX, touchY)
-
-            popupView.findViewById<TextView>(R.id.sort_by_popular).setOnClickListener {
-                Log.d("sorted","клик по популярности")
-                productViewModel.sortBy(requireContext().getString(R.string.by_popular))
-                popupWindow.dismiss()
-            }
-
-            popupView.findViewById<TextView>(R.id.sort_by_price_decrease).setOnClickListener {
-                Log.d("sorted","клик по уменьшению")
-                productViewModel.sortBy(requireContext().getString(R.string.by_price_decrease))
-                popupWindow.dismiss()
-            }
-
-            popupView.findViewById<TextView>(R.id.sort_price_increase).setOnClickListener {
-                Log.d("sorted","клик по возрастанию")
-                productViewModel.sortBy(requireContext().getString(R.string.by_price_increase))
-                popupWindow.dismiss()
-            }
+            productViewModel.sortBy(selectedItem)
 
         }
 

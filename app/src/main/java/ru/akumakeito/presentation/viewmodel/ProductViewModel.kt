@@ -85,6 +85,7 @@ class ProductViewModel @Inject constructor(
 
     fun sortBy(sortParam: String) {
         viewModelScope.launch {
+            Log.d("sorting", "vm ${sortParam}")
             sortByUseCase.invoke(sortParam)
         }
 

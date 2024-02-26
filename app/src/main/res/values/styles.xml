@@ -143,14 +143,16 @@
 
     <style name="Widget.App.TextButton.Icon" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="android:height">@dimen/text_btn_height</item>
-        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
+        <item name="android:textAppearance">@style/DropDownTextAppearance</item>
         <item name="iconTint">@color/dark_grey</item>
+        <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/dark_grey</item>
+        <item name="rippleColor">@color/white</item>
     </style>
 
     <style name="Widget.App.TextButton" parent="Widget.Material3.Button.TextButton">
         <item name="android:height">@dimen/text_btn_height</item>
-        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
+        <item name="android:textAppearance">@style/DropDownTextAppearance</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>

@@ -5,9 +5,11 @@ import android.util.Log
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.transform
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.data.dao.ProductDao
 import ru.akumakeito.effectivemobile_test.data.model.ProductEntity
@@ -32,9 +34,12 @@ class ProductsRepositoryImpl @Inject constructor(
         .map(List<ProductEntity>::toProduct)
         .flowOn(Dispatchers.IO)
 
-    override val dataProduct: Flow<List<Product>> = dao.getAllProducts()
-        .map(List<ProductEntity>::toProduct)
-        .flowOn(Dispatchers.IO)
+    private val _dataProduct: Flow<List<Product>> =
+        dao.getAllProducts().map(List<ProductEntity>::toProduct).flowOn(Dispatchers.IO)
+
+
+    override val dataProduct = _dataProduct
+
 
     override suspend fun addImageListToProduct() {
         val res = context.resources
@@ -55,12 +60,12 @@ class ProductsRepositoryImpl @Inject constructor(
                 val result = api.getAllProducts()
                 dao.insertAllProducts(result.items.toEntity())
                 addImageListToProduct()
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
-
 
 
     override suspend fun addImageListToProduct(jsonString: String) {
@@ -104,45 +109,24 @@ class ProductsRepositoryImpl @Inject constructor(
         return filteredProductList.toList()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override suspend fun sortBy(sortParameter: String) {
-        dataProduct.map { list ->
-            list.sortedByDescending {
-                it.feedback?.rating ?: 0f
-                Log.d("sorting", "by popular ${list}")
-            }
-        }.flowOn(Dispatchers.IO)
+        Log.d("sorting", "before ${dataProduct}")
+        val sortedList =  when (sortParameter) {
+            context.getString(R.string.by_popular) -> dao.getAllSortedByPopular()
+            context.getString(R.string.by_price_decrease) -> dao.getAllSortedByPrice(false)
+            context.getString(R.string.by_price_increase) -> dao.getAllSortedByPrice(true)
+            else -> dao.getAllSortedByPopular()
+        }.map {
+            it.toProduct()
+        }
 
+        _dataProduct.transform {
+            emit(sortedList)
+        }
 
-//        data.collect { products ->
-//            when (sortParameter) {
-//                context.getString(R.string.by_popular) -> {
-//
-//                    products.sortedBy { product ->
-//                        product.feedback?.rating
-//                    }
-//                    Log.d("sorting", "by popular ${products}")
-//                }
-//
-//                context.getString(R.string.by_price_decrease) -> {
-//
-//
-//                    products.sortedBy { product ->
-//                        product.price.priceWithDiscount
-//                    }.reversed()
-//                    Log.d("sorting", "by decrese ${products}")
-//                }
-//
-//                context.getString(R.string.by_price_increase) -> {
-//                    products.sortedBy { product ->
-//                        product.price.priceWithDiscount
-//                    }
-//                    Log.d("sorting", "by increse ${products}")
-//
-//                }
-//            }
-//
-//        }
     }
+
 
     override suspend fun deleteAll() {
         dao.deleteAll()

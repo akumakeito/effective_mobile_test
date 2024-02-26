@@ -1,6 +1,7 @@
 package ru.akumakeito.effectivemobile_test.domain.repository
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 import ru.akumakeito.effectivemobile_test.domain.model.Product
 
 interface ProductRepository  {
