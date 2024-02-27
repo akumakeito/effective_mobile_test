@@ -208,5 +208,9 @@
         <item name="tabIndicator">@drawable/tab_indicator_shape</item>
     </style>
 
+    <style name="ProgressBar" parent="Widget.Material3.CircularProgressIndicator">
+        <item name="indicatorColor">@color/pink</item>
+    </style>
+
 
 </resources>

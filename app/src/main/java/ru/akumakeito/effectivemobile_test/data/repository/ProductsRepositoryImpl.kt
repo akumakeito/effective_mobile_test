@@ -1,17 +1,13 @@
 package ru.akumakeito.effectivemobile_test.data.repository
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.data.dao.ProductDao
 import ru.akumakeito.effectivemobile_test.data.model.ProductEntity
@@ -36,9 +32,8 @@ class ProductsRepositoryImpl @Inject constructor(
         .map(List<ProductEntity>::toProduct)
         .flowOn(Dispatchers.IO)
 
-    private val _dataProduct: Flow<List<Product>> =
-        dao.getAllProducts().map(List<ProductEntity>::toProduct).flowOn(Dispatchers.IO)
-    override val dataProduct = _dataProduct
+    private val _dataProduct : Flow<List<Product>> = dao.getAllProducts().map(List<ProductEntity>::toProduct)
+    override val dataProduct: Flow<List<Product>> = _dataProduct
 
 
     private val sortEvents = MutableSharedFlow<Unit>()
@@ -97,39 +92,21 @@ class ProductsRepositoryImpl @Inject constructor(
         val tag = Tags.entries.find { it.tagName == tagName }
         val productList = dataProduct
         val filteredProductList = mutableListOf<Product>()
-        productList.collect { products ->
-            products.forEach { product ->
-                product.tags.forEach {
-                    if (it == tag) {
-                        filteredProductList.add(product)
-                    }
-                }
-
-            }
-
-
-        }
+//        productList.collect { products ->
+//            products.forEach { product ->
+//                product.tags.forEach {
+//                    if (it == tag) {
+//                        filteredProductList.add(product)
+//                    }
+//                }
+//
+//            }
+//
+//
+//        }
         return filteredProductList.toList()
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    override suspend fun sortBy(sortParameter: String) {
-
-        CoroutineScope(Dispatchers.IO).launch {
-            Log.d("sorting", "before ${dataProduct}")
-            val sortedList =  when (sortParameter) {
-                context.getString(R.string.by_popular) -> dao.getAllSortedByPopular()
-                context.getString(R.string.by_price_decrease) -> dao.getAllSortedByPrice(false)
-                context.getString(R.string.by_price_increase) -> dao.getAllSortedByPrice(true)
-                else -> dao.getAllSortedByPopular()
-            }
-
-            dao.insertAllProducts(sortedList)
-
-        }
-
-
-    }
 
 
 

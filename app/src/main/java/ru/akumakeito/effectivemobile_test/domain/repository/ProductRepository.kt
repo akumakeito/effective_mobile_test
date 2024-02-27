@@ -1,7 +1,6 @@
 package ru.akumakeito.effectivemobile_test.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import ru.akumakeito.effectivemobile_test.domain.model.Product
 
 interface ProductRepository  {
@@ -21,7 +20,6 @@ interface ProductRepository  {
     suspend fun getProductsById(id: String) : Product
 
     suspend fun getProductsByTag(tagName: String): List<Product>
-    suspend fun sortBy(sortParameter : String)
 
     suspend fun deleteAll()
 

@@ -40,6 +40,8 @@
 
         <item name="chipStyle">@style/ChipSuggestion</item>
 
+        <item name="circularProgressIndicatorStyle">@style/ProgressBar</item>
+
         <item name="materialIconButtonFilledStyle">@style/Widget.App.IconButton.Filled</item>
     </style>
 

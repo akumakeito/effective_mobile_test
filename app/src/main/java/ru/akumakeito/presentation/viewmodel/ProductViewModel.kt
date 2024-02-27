@@ -2,19 +2,26 @@ package ru.akumakeito.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.akumakeito.effectivemobile_test.domain.model.FilterData
 import ru.akumakeito.effectivemobile_test.domain.model.Price
 import ru.akumakeito.effectivemobile_test.domain.model.Product
+import ru.akumakeito.effectivemobile_test.domain.model.SortType
 import ru.akumakeito.effectivemobile_test.domain.model.Tags
+import ru.akumakeito.effectivemobile_test.domain.model.UiState
 import ru.akumakeito.effectivemobile_test.domain.repository.ProductRepository
-import ru.akumakeito.effectivemobile_test.domain.usecase.product.AddFavoriteProductUseCase
 import ru.akumakeito.effectivemobile_test.domain.usecase.product.GetProductByIdUseCase
 import ru.akumakeito.effectivemobile_test.domain.usecase.product.GetProductsUseCase
-import ru.akumakeito.effectivemobile_test.domain.usecase.product.SortByUseCase
+import ru.akumakeito.effectivemobile_test.domain.usecase.product.UpdateFavoriteProductUseCase
+import ru.akumakeito.util.Constants.Companion.KEY_FILTER_DATA
 import javax.inject.Inject
 
 val emptyProduct = Product(
@@ -35,9 +42,9 @@ val emptyProduct = Product(
 class ProductViewModel @Inject constructor(
     private val getProductsUseCase: GetProductsUseCase,
     private val getProductByIdUseCase: GetProductByIdUseCase,
-    private val sortByUseCase: SortByUseCase,
     private val repository: ProductRepository,
-    private val addFavoriteProductUseCase: AddFavoriteProductUseCase
+    private val updateFavoriteProductUseCase: UpdateFavoriteProductUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     init {
@@ -48,7 +55,7 @@ class ProductViewModel @Inject constructor(
     private var _tags = listOf<String>("")
     val tags = _tags
 
-    private val _products = repository.dataProduct.asLiveData()
+    private val _products = repository.dataProduct
     val products = _products
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
@@ -57,9 +64,44 @@ class ProductViewModel @Inject constructor(
     private val _product = MutableLiveData(emptyProduct)
     val product = _product
 
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
+
+    init {
+
+        savedStateHandle.get<FilterData>(KEY_FILTER_DATA)?.let { filterData ->
+            _uiState.update {
+                it.copy(sortType = filterData.sortType, loading = true)
+            }
+        }
+
+    }
+
+    fun setSortType(sortType: SortType) {
+        _uiState.update {
+            it.copy(sortType = sortType)
+        }
+    }
+
+
+    fun resetFilters() {
+        _uiState.update {
+            it.copy(clearAllFilters = true, sortType = SortType.NONE)
+        }
+    }
+
+    fun applyFilters() {
+        _uiState.update {
+            it.copy(applyAllFilters = true)
+        }
+    }
+
     fun getProducts() {
         viewModelScope.launch {
             getProductsUseCase()
+            _uiState.update {
+                it.copy(loading = false)
+            }
         }
 
     }
@@ -71,22 +113,16 @@ class ProductViewModel @Inject constructor(
         Log.d("listTags", _tags.toString())
     }
 
-    fun getProductsByTag(tagName: String) {
-        viewModelScope.launch {
-//            _products.value = getProductsByTagUseCase.execute(tagName)
-        }
-    }
 
     fun updateFavoriteProduct(product: Product) {
         viewModelScope.launch {
-            addFavoriteProductUseCase.execute(product)
+            updateFavoriteProductUseCase.execute(product)
         }
     }
 
     fun sortBy(sortParam: String) {
         viewModelScope.launch {
             Log.d("sorting", "vm ${sortParam}")
-            sortByUseCase.invoke(sortParam)
         }
 
     }

@@ -9,13 +9,19 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.FragmentCatalogBinding
 import ru.akumakeito.effectivemobile_test.domain.model.Product
+import ru.akumakeito.effectivemobile_test.domain.model.SortType
 import ru.akumakeito.presentation.ui.adapters.CardItemAdapter
 import ru.akumakeito.presentation.ui.adapters.OnCardInteractionListener
 import ru.akumakeito.presentation.viewmodel.ProductViewModel
@@ -64,7 +70,7 @@ class FragmentCatalog : Fragment() {
         binding.cardList.itemAnimator = null
 
 
-        binding.chipgroup.setOnCheckedStateChangeListener{ chipgroup, checkedId ->
+        binding.chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
 
 //            val chip = chipgroup.findViewById<Chip>(checkedId)
 //            if (chip != null) {
@@ -73,62 +79,85 @@ class FragmentCatalog : Fragment() {
 
         }
 
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                launch {
+                    productViewModel.products.collectLatest {
+                        adapter.submitList(it)
+                    }
+                }
 
+                launch {
+                    productViewModel.uiState.collectLatest { state ->
+                        state.loading.let {
+                            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+                        }
 
+                    }
 
-        productViewModel.products.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+                }
+            }
         }
 
-        return binding.root
+    return binding.root
+}
+
+
+override fun onResume() {
+    super.onResume()
+
+    val sortingList = setSortingList()
+    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
+    binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
+}
+
+    private fun setSortingList() : List<SortType> {
+        val sortingList = mutableListOf<SortType>()
+        SortType.entries.forEach {
+            sortingList.add(it) }
+
+        return sortingList
     }
 
-    override fun onResume() {
-        super.onResume()
-        val sortingList = resources.getStringArray(R.array.sorting)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
-        binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
+private fun setupChipGroupDynamically(list: List<String>) {
+    val chipGroup = ChipGroup(requireContext())
+    chipGroup.layoutParams = LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+    chipGroup.isSingleSelection = true
+    chipGroup.isSingleLine = true
+
+
+    list.forEach {
+        chipGroup.addView(createChip(it))
+
+        Log.d("chipGroup", "add chip ${it}")
     }
 
-    private fun setupChipGroupDynamically(list: List<String>) {
-        val chipGroup = ChipGroup(requireContext())
-        chipGroup.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        chipGroup.isSingleSelection = true
-        chipGroup.isSingleLine = true
+    binding.chipContaner.addView(chipGroup)
+}
 
+private fun createChip(label: String): Chip {
+    val chip = Chip(requireContext(), null, R.style.ChipSuggestion)
+    chip.layoutParams = LinearLayout.LayoutParams(
+        ViewGroup.LayoutParams.WRAP_CONTENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT
+    )
 
-        list.forEach {
-            chipGroup.addView(createChip(it))
-
-            Log.d("chipGroup", "add chip ${it}")
-        }
-
-        binding.chipContaner.addView(chipGroup)
+    chip.text = label
+    if (chip.isChecked) {
+        chip.isCloseIconVisible = true
     }
+    chip.isChipIconVisible = false
+    chip.isCheckable = true
+    chip.isClickable = true
 
-    private fun createChip(label: String): Chip {
-        val chip = Chip(requireContext(), null, R.style.ChipSuggestion)
-        chip.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        chip.text = label
-        if (chip.isChecked) {
-            chip.isCloseIconVisible = true
-        }
-        chip.isChipIconVisible = false
-        chip.isCheckable = true
-        chip.isClickable = true
-
-        chip.setOnCloseIconClickListener {
-            chip.isChecked = false
-            productViewModel.getProducts()
-        }
-        return chip
+    chip.setOnCloseIconClickListener {
+        chip.isChecked = false
+        productViewModel.getProducts()
     }
+    return chip
+}
 }
 

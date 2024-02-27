@@ -14,6 +14,7 @@ class Constants {
 
         const val USER_PHONE = "user_phone"
         const val USER_SIGNED_IN = "user_signed_in"
+        const val KEY_FILTER_DATA = "filter_data"
 
 
 
