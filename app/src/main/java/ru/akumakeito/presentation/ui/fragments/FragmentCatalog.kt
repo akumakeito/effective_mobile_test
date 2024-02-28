@@ -106,18 +106,11 @@ class FragmentCatalog : Fragment() {
 override fun onResume() {
     super.onResume()
 
-    val sortingList = setSortingList()
-    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
+    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item,
+        SortType.entries.toTypedArray()
+    )
     binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
 }
-
-    private fun setSortingList() : List<SortType> {
-        val sortingList = mutableListOf<SortType>()
-        SortType.entries.forEach {
-            sortingList.add(it) }
-
-        return sortingList
-    }
 
 private fun setupChipGroupDynamically(list: List<String>) {
     val chipGroup = ChipGroup(requireContext())

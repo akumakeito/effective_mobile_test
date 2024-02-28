@@ -67,6 +67,8 @@ class ProductViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
+    val sortingList = mutableListOf<String>()
+
     init {
 
         savedStateHandle.get<FilterData>(KEY_FILTER_DATA)?.let { filterData ->
@@ -76,6 +78,7 @@ class ProductViewModel @Inject constructor(
         }
 
     }
+
 
     fun setSortType(sortType: SortType) {
         _uiState.update {

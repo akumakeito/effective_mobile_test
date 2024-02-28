@@ -5,16 +5,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.akumakeito.effectivemobile_test.R
 
 @ApplicationContext lateinit var context : Context
-enum class SortType(sortString: String) {
-    NONE(sortString = context.getString(R.string.by_popular)),
-    ALPHABETICAL_ASC(sortString = context.getString(R.string.by_price_increase)),
-    ALPHABETICAL_DESC(sortString = context.getString(R.string.by_price_decrease)),
-    POPULATION_ASC(sortString = context.getString(R.string.by_popular))
+enum class SortType(val value: String) {
+    POPULATION_ASC(value = context.getString(R.string.by_popular)),
+    ALPHABETICAL_ASC(value = context.getString(R.string.by_price_increase)),
+    ALPHABETICAL_DESC(value = context.getString(R.string.by_price_decrease))
+
 }
 
     data class UiState(
         val loading : Boolean = false,
-        val sortType: SortType = SortType.NONE,
+        val sortType: SortType = SortType.POPULATION_ASC,
         val content : List<Product> = emptyList(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false
@@ -26,5 +26,5 @@ enum class SortType(sortString: String) {
     }
 
 data class FilterData(
-    val sortType: SortType = SortType.NONE
+    val sortType: SortType = SortType.POPULATION_ASC
 ) : java.io.Serializable
