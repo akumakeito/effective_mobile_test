@@ -31,6 +31,7 @@ class FragmentCatalog : Fragment() {
 
     val productViewModel: ProductViewModel by viewModels()
     private lateinit var binding: FragmentCatalogBinding
+    private lateinit var sortingList : Array<SortType>
 
 
     override fun onCreateView(
@@ -39,6 +40,7 @@ class FragmentCatalog : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
+        sortingList =  SortType.entries.toTypedArray()
 
         val adapter = CardItemAdapter(requireContext(), object : OnCardInteractionListener {
             override fun onCardClick(product: Product) {
@@ -106,9 +108,7 @@ class FragmentCatalog : Fragment() {
 override fun onResume() {
     super.onResume()
 
-    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item,
-        SortType.entries.toTypedArray()
-    )
+    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
     binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
 }
 
