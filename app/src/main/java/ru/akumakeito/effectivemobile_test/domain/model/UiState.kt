@@ -16,7 +16,6 @@ enum class SortType(val valueProvider: () -> String) {
     data class UiState(
         val loading : Boolean = false,
         val sortType: SortType = SortType.POPULARITY_ASC,
-        val content : List<Product> = emptyList(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false
     ) {
@@ -25,7 +24,3 @@ enum class SortType(val valueProvider: () -> String) {
         val chipAlphabeticalSortDescIsChecked = sortType == SortType.PRICE_DESC
         val chipByPopulationSortIsChecked = sortType == SortType.POPULARITY_ASC
     }
-
-data class FilterData(
-    val sortType: SortType = SortType.POPULARITY_ASC
-) : java.io.Serializable

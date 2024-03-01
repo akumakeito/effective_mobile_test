@@ -107,7 +107,7 @@ class FragmentCatalog : Fragment() {
 
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch {
                     productViewModel.products.collectLatest {
                         adapter.submitList(it)
@@ -126,21 +126,6 @@ class FragmentCatalog : Fragment() {
         }
 
 
-//        lifecycleScope.launch {
-//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//
-//                    productViewModel.uiState.collectLatest { state ->
-//                        state.loading.let {
-//                            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
-//                        }
-//
-//                        state.content.let {
-//                            adapter.submitList(it)
-//                        }
-//
-//                }
-//            }
-//        }
 
     return binding.root
 }
