@@ -1,14 +1,15 @@
 package ru.akumakeito.effectivemobile_test.domain.model
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.akumakeito.effectivemobile_test.R
+import ru.akumakeito.presentation.ui.fragments.FragmentCatalog.Companion.context
 
-@ApplicationContext lateinit var context : Context
-enum class SortType(val value: String) {
-    POPULATION_ASC(value = context.getString(R.string.by_popular)),
-    ALPHABETICAL_ASC(value = context.getString(R.string.by_price_increase)),
-    ALPHABETICAL_DESC(value = context.getString(R.string.by_price_decrease))
+
+enum class SortType(val valueProvider: () -> String) {
+    POPULATION_ASC(valueProvider = {context.getString(R.string.by_popular)}),
+    ALPHABETICAL_ASC(valueProvider = { context.getString(R.string.by_price_increase) }),
+    ALPHABETICAL_DESC(valueProvider = { context.getString(R.string.by_price_decrease) });
+
+    val value : String by lazy { valueProvider.invoke()}
 
 }
 
@@ -20,7 +21,7 @@ enum class SortType(val value: String) {
         val applyAllFilters: Boolean = false
     ) {
 
-        val chipAlphabeticalSorAsctIsChecked = sortType == SortType.ALPHABETICAL_ASC
+        val chipAlphabeticalSorAscIsChecked = sortType == SortType.ALPHABETICAL_ASC
         val chipAlphabeticalSortDescIsChecked = sortType == SortType.ALPHABETICAL_DESC
         val chipByPopulationSortIsChecked = sortType == SortType.POPULATION_ASC
     }

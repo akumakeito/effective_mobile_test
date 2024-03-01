@@ -67,8 +67,6 @@ class ProductViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    val sortingList = mutableListOf<String>()
-
     init {
 
         savedStateHandle.get<FilterData>(KEY_FILTER_DATA)?.let { filterData ->
@@ -89,7 +87,7 @@ class ProductViewModel @Inject constructor(
 
     fun resetFilters() {
         _uiState.update {
-            it.copy(clearAllFilters = true, sortType = SortType.NONE)
+            it.copy(clearAllFilters = true, sortType = SortType.POPULATION_ASC)
         }
     }
 
@@ -123,7 +121,7 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun sortBy(sortParam: String) {
+    fun sortBy(sortParam: SortType) {
         viewModelScope.launch {
             Log.d("sorting", "vm ${sortParam}")
         }

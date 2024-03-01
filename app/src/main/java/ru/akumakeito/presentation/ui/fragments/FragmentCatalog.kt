@@ -1,5 +1,6 @@
 package ru.akumakeito.presentation.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.akumakeito.effectivemobile_test.R
@@ -31,7 +33,28 @@ class FragmentCatalog : Fragment() {
 
     val productViewModel: ProductViewModel by viewModels()
     private lateinit var binding: FragmentCatalogBinding
-    private lateinit var sortingList : Array<SortType>
+    private val sortingList : MutableList<String> = mutableListOf()
+    private lateinit var arrayAdapter: ArrayAdapter<String>
+
+    companion object {
+        @ApplicationContext
+        lateinit var context : Context
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        FragmentCatalog.context = context
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        SortType.entries.forEach {
+            sortingList.add(it.value)
+        }
+        arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
+    }
 
 
     override fun onCreateView(
@@ -40,7 +63,9 @@ class FragmentCatalog : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
-        sortingList =  SortType.entries.toTypedArray()
+
+        binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
+
 
         val adapter = CardItemAdapter(requireContext(), object : OnCardInteractionListener {
             override fun onCardClick(product: Product) {
@@ -59,8 +84,7 @@ class FragmentCatalog : Fragment() {
 
 
         binding.sortingAutocompleteTv.setOnItemClickListener { parent, _, position, _ ->
-            val selectedItem = parent.getItemAtPosition(position).toString()
-            Log.d("sorting", "actv ${selectedItem}")
+            val selectedItem = SortType.valueOf(parent.getItemAtPosition(position).toString())
 
             productViewModel.sortBy(selectedItem)
 
@@ -108,7 +132,6 @@ class FragmentCatalog : Fragment() {
 override fun onResume() {
     super.onResume()
 
-    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.sorting_menu_item, sortingList)
     binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
 }
 
