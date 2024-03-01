@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
@@ -58,6 +59,9 @@ class ProductViewModel @Inject constructor(
 
     private val _products = repository.dataProduct
     val products = _products
+
+    private val _sortedProducts = MutableStateFlow<List<Product>>(emptyList())
+    val sortedProducts = _sortedProducts as StateFlow<List<Product>>
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
     val favoriteProducts = _favoriteProducts
@@ -123,12 +127,12 @@ class ProductViewModel @Inject constructor(
                     SortType.PRICE_DESC -> it.sortedByDescending { it.price.priceWithDiscount }
                 }
 
-
-
+            }.collect{
+                _sortedProducts.value = it
                 Log.d("sorting", "vm ${sortParam}")
 
                 Log.d("sorting", "sorted list ${it}")
-            }.collect{}
+            }
 
 
         }
