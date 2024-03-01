@@ -5,9 +5,9 @@ import ru.akumakeito.presentation.ui.fragments.FragmentCatalog.Companion.context
 
 
 enum class SortType(val valueProvider: () -> String) {
-    POPULATION_ASC(valueProvider = {context.getString(R.string.by_popular)}),
-    ALPHABETICAL_ASC(valueProvider = { context.getString(R.string.by_price_increase) }),
-    ALPHABETICAL_DESC(valueProvider = { context.getString(R.string.by_price_decrease) });
+    POPULARITY_ASC(valueProvider = {context.getString(R.string.by_popular)}),
+    PRICE_ASC(valueProvider = { context.getString(R.string.by_price_increase) }),
+    PRICE_DESC(valueProvider = { context.getString(R.string.by_price_decrease) });
 
     val value : String by lazy { valueProvider.invoke()}
 
@@ -15,17 +15,17 @@ enum class SortType(val valueProvider: () -> String) {
 
     data class UiState(
         val loading : Boolean = false,
-        val sortType: SortType = SortType.POPULATION_ASC,
+        val sortType: SortType = SortType.POPULARITY_ASC,
         val content : List<Product> = emptyList(),
         val clearAllFilters: Boolean = false,
         val applyAllFilters: Boolean = false
     ) {
 
-        val chipAlphabeticalSorAscIsChecked = sortType == SortType.ALPHABETICAL_ASC
-        val chipAlphabeticalSortDescIsChecked = sortType == SortType.ALPHABETICAL_DESC
-        val chipByPopulationSortIsChecked = sortType == SortType.POPULATION_ASC
+        val chipAlphabeticalSorAscIsChecked = sortType == SortType.PRICE_ASC
+        val chipAlphabeticalSortDescIsChecked = sortType == SortType.PRICE_DESC
+        val chipByPopulationSortIsChecked = sortType == SortType.POPULARITY_ASC
     }
 
 data class FilterData(
-    val sortType: SortType = SortType.POPULATION_ASC
+    val sortType: SortType = SortType.POPULARITY_ASC
 ) : java.io.Serializable

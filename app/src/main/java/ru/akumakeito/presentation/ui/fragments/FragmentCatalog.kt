@@ -84,7 +84,7 @@ class FragmentCatalog : Fragment() {
 
 
         binding.sortingAutocompleteTv.setOnItemClickListener { parent, _, position, _ ->
-            val selectedItem = SortType.valueOf(parent.getItemAtPosition(position).toString())
+            val selectedItem = SortType.entries.find {it.value == parent.getItemAtPosition(position).toString() } ?: SortType.POPULARITY_ASC
 
             productViewModel.sortBy(selectedItem)
 
@@ -105,25 +105,31 @@ class FragmentCatalog : Fragment() {
 
         }
 
+
         lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launch {
-                    productViewModel.products.collectLatest {
-                        adapter.submitList(it)
-                    }
-                }
-
-                launch {
-                    productViewModel.uiState.collectLatest { state ->
-                        state.loading.let {
-                            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
-                        }
-
-                    }
-
+            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                productViewModel.products.collectLatest {
+                    adapter.submitList(it)
                 }
             }
         }
+
+
+//        lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+//
+//                    productViewModel.uiState.collectLatest { state ->
+//                        state.loading.let {
+//                            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+//                        }
+//
+//                        state.content.let {
+//                            adapter.submitList(it)
+//                        }
+//
+//                }
+//            }
+//        }
 
     return binding.root
 }

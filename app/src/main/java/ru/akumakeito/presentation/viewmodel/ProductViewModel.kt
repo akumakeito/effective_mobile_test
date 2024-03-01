@@ -9,9 +9,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.akumakeito.effectivemobile_test.domain.model.FilterData
 import ru.akumakeito.effectivemobile_test.domain.model.Price
 import ru.akumakeito.effectivemobile_test.domain.model.Product
 import ru.akumakeito.effectivemobile_test.domain.model.SortType
@@ -21,7 +21,6 @@ import ru.akumakeito.effectivemobile_test.domain.repository.ProductRepository
 import ru.akumakeito.effectivemobile_test.domain.usecase.product.GetProductByIdUseCase
 import ru.akumakeito.effectivemobile_test.domain.usecase.product.GetProductsUseCase
 import ru.akumakeito.effectivemobile_test.domain.usecase.product.UpdateFavoriteProductUseCase
-import ru.akumakeito.util.Constants.Companion.KEY_FILTER_DATA
 import javax.inject.Inject
 
 val emptyProduct = Product(
@@ -49,7 +48,9 @@ class ProductViewModel @Inject constructor(
 
     init {
         getTags()
+
         getProducts()
+
     }
 
     private var _tags = listOf<String>("")
@@ -67,16 +68,6 @@ class ProductViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 
-    init {
-
-        savedStateHandle.get<FilterData>(KEY_FILTER_DATA)?.let { filterData ->
-            _uiState.update {
-                it.copy(sortType = filterData.sortType, loading = true)
-            }
-        }
-
-    }
-
 
     fun setSortType(sortType: SortType) {
         _uiState.update {
@@ -87,7 +78,7 @@ class ProductViewModel @Inject constructor(
 
     fun resetFilters() {
         _uiState.update {
-            it.copy(clearAllFilters = true, sortType = SortType.POPULATION_ASC)
+            it.copy(clearAllFilters = true, sortType = SortType.POPULARITY_ASC)
         }
     }
 
@@ -123,7 +114,23 @@ class ProductViewModel @Inject constructor(
 
     fun sortBy(sortParam: SortType) {
         viewModelScope.launch {
-            Log.d("sorting", "vm ${sortParam}")
+
+            _products.map {
+
+                when (sortParam) {
+                    SortType.POPULARITY_ASC -> it.sortedByDescending { it.feedback?.rating }
+                    SortType.PRICE_ASC -> it.sortedBy { it.price.priceWithDiscount }
+                    SortType.PRICE_DESC -> it.sortedByDescending { it.price.priceWithDiscount }
+                }
+
+
+
+                Log.d("sorting", "vm ${sortParam}")
+
+                Log.d("sorting", "sorted list ${it}")
+            }.collect{}
+
+
         }
 
     }

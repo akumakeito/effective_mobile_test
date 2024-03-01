@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import ru.akumakeito.effectivemobile_test.R
@@ -35,8 +34,6 @@ class ProductsRepositoryImpl @Inject constructor(
     private val _dataProduct : Flow<List<Product>> = dao.getAllProducts().map(List<ProductEntity>::toProduct)
     override val dataProduct: Flow<List<Product>> = _dataProduct
 
-
-    private val sortEvents = MutableSharedFlow<Unit>()
 
 
     override suspend fun addImageListToProduct() {
