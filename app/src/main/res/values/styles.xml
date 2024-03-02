@@ -167,7 +167,7 @@
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
 
-    <style name="ChipInput" parent="Widget.Material3.Chip.Suggestion">
+    <style name="ChipSuggestion" parent="Widget.Material3.Chip.Suggestion">
         <item name="chipBackgroundColor">@color/chip_color_selector</item>
         <item name="chipStrokeWidth">0dp</item>
         <item name="chipSurfaceColor">@color/chip_color_selector</item>

@@ -51,7 +51,7 @@ class ProductViewModel @Inject constructor(
 
     }
 
-    private lateinit var _tags :List<String>
+    private lateinit var _tags: List<String>
     val tags = _tags
 
     private val _products = repository.dataProduct
@@ -59,6 +59,9 @@ class ProductViewModel @Inject constructor(
 
     private val _sortedProducts = MutableStateFlow<List<Product>>(emptyList())
     val sortedProducts = _sortedProducts as StateFlow<List<Product>>
+
+    private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
+    val filteredProducts = _filteredProducts as StateFlow<List<Product>>
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
     val favoriteProducts = _favoriteProducts
@@ -83,7 +86,27 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun applyFilters() {
+    fun applyFilters(tag: Tags) {
+
+        viewModelScope.launch {
+            _products.map {
+                if (tag == Tags.notag){
+                  it
+                } else {
+                    it.filter { product ->
+                        product.tags.contains(tag)
+                    }
+                }
+
+            }.collect {
+                _filteredProducts.value = it
+                Log.d("sorting", "vm ${tag}")
+
+                Log.d("sorting", "filtered list ${it}")
+            }
+        }
+
+
         _uiState.update {
             it.copy(applyAllFilters = true)
         }
@@ -121,7 +144,7 @@ class ProductViewModel @Inject constructor(
                     SortType.PRICE_DESC -> it.sortedByDescending { it.price.priceWithDiscount }
                 }
 
-            }.collect{
+            }.collect {
                 _sortedProducts.value = it
                 Log.d("sorting", "vm ${sortParam}")
 

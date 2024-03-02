@@ -23,6 +23,7 @@ import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.FragmentCatalogBinding
 import ru.akumakeito.effectivemobile_test.domain.model.Product
 import ru.akumakeito.effectivemobile_test.domain.model.SortType
+import ru.akumakeito.effectivemobile_test.domain.model.Tags
 import ru.akumakeito.presentation.ui.adapters.CardItemAdapter
 import ru.akumakeito.presentation.ui.adapters.OnCardInteractionListener
 import ru.akumakeito.presentation.viewmodel.ProductViewModel
@@ -100,14 +101,26 @@ class FragmentCatalog : Fragment() {
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
 
-                var chip = chipgroup.findViewById<Chip>(checkedId.first())
-                chip.apply {
-                    isChecked = true
+                if (checkedId.isEmpty()) {
+                    productViewModel.applyFilters(Tags.notag)
+                } else {
 
-                    isCloseIconVisible = if (isChecked) true else false
+                    val chip = chipgroup.findViewById<Chip>(checkedId.first())
+                    val tag = Tags.entries.find { it.tagName == chip.text } ?: Tags.notag
+                    chip.apply {
+
+                        isChecked = true
+
+                        isCloseIconVisible = if (isChecked) true else false
+
+                    }
+
+                    productViewModel.applyFilters(tag)
+                    Log.d("chip", "${chip.text} ${chip.isChecked}")
 
                 }
-                Log.d("chip", "${chip.text} ${chip.isChecked}")
+
+
 
 
             }
