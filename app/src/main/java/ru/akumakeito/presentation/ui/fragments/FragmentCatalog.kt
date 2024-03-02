@@ -36,6 +36,7 @@ class FragmentCatalog : Fragment() {
     private val sortingList: MutableList<String> = mutableListOf()
     private lateinit var arrayAdapter: ArrayAdapter<String>
     private var lastSelectedChip: Chip? = null
+    private var defaultCheckedChipId: Int = 0
 
 
     companion object {
@@ -102,10 +103,6 @@ class FragmentCatalog : Fragment() {
                 chipgroup.addView(createChip(it))
             }
 
-
-
-
-
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
 
                 if (checkedId.isEmpty()) {
@@ -120,6 +117,18 @@ class FragmentCatalog : Fragment() {
                     val tag = Tags.entries.find { it.tagName == chip.text } ?: Tags.notag
                     chip.apply {
                         isCloseIconVisible = isChecked
+                        setOnCloseIconClickListener {
+                            if (tag != Tags.notag) {
+
+                                    chipgroup.clearCheck()
+                                    isCloseIconVisible = chip.isChecked
+                                    productViewModel.resetFilters()
+                                chipgroup.check(defaultCheckedChipId)
+
+
+
+                            }
+                        }
 
                     }
 
@@ -183,18 +192,11 @@ class FragmentCatalog : Fragment() {
             id = View.generateViewId()
 
             if (label == Tags.notag.tagName) {
-                isChecked =  true
+                isChecked = true
                 lastSelectedChip = this
-                setOnCloseIconClickListener {  }
+                defaultCheckedChipId = id
             } else {
                 isChecked = false
-
-                setOnCloseIconClickListener {
-                    chip.isChecked = false
-                    chip.isCloseIconVisible = chip.isChecked
-                    productViewModel.resetFilters()
-
-                }
             }
 
 
@@ -211,7 +213,6 @@ class FragmentCatalog : Fragment() {
             }
 
             setOnClickListener(clickListener)
-
 
 
         }
