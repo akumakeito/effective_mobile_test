@@ -2,6 +2,7 @@ package ru.akumakeito.presentation.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,6 +99,15 @@ class FragmentCatalog : Fragment() {
 
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
+
+                var chip = chipgroup.findViewById<Chip>(checkedId.first())
+                chip.apply {
+                    isChecked = true
+
+                    isCloseIconVisible = if (isChecked) true else false
+
+                }
+                Log.d("chip", "${chip.text} ${chip.isChecked}")
 
 
             }
