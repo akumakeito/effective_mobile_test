@@ -100,6 +100,7 @@ class FragmentCatalog : Fragment() {
 
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
+                Log.d("chip", "checked")
 
                 if (checkedId.isEmpty()) {
                     productViewModel.applyFilters(Tags.notag)
@@ -109,19 +110,18 @@ class FragmentCatalog : Fragment() {
                     val tag = Tags.entries.find { it.tagName == chip.text } ?: Tags.notag
                     chip.apply {
 
-                        isChecked = true
+                        chip.isCloseIconVisible = chip.isChecked
 
-                        isCloseIconVisible = if (isChecked) true else false
+                    }
 
+                    chip.setOnClickListener {
+                        chip.isCloseIconVisible = chip.isChecked
                     }
 
                     productViewModel.applyFilters(tag)
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
 
                 }
-
-
-
 
             }
 
@@ -174,11 +174,15 @@ private fun createChip(label: String): Chip {
 
     chip.text = label
 
+    chip.isChecked = false
+    chip.isCloseIconVisible = chip.isChecked
+
     chip.isCheckable = true
     chip.isClickable = true
 
     chip.setOnCloseIconClickListener {
         chip.isChecked = false
+        chip.isCloseIconVisible = chip.isChecked
         productViewModel.resetFilters()
     }
     return chip
