@@ -87,7 +87,7 @@ class ProductViewModel @Inject constructor(
     }
 
     fun applyFilters(tag: Tags) {
-
+        Log.d("chip", "vm ${tag}")
         viewModelScope.launch {
             _products.map {
                 if (tag == Tags.notag){
@@ -100,9 +100,8 @@ class ProductViewModel @Inject constructor(
 
             }.collect {
                 _filteredProducts.value = it
-                Log.d("sorting", "vm ${tag}")
 
-                Log.d("sorting", "filtered list ${it}")
+                Log.d("chip", "filtered list ${it}")
             }
         }
 

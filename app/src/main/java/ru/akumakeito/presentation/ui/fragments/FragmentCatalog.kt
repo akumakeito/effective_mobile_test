@@ -140,6 +140,12 @@ class FragmentCatalog : Fragment() {
                         }
                     }
 
+                    launch {
+                        productViewModel.filteredProducts.collectLatest {
+                            adapter.submitList(it)
+                        }
+                    }
+
                 }
             }
         }
@@ -167,16 +173,13 @@ private fun createChip(label: String): Chip {
     )
 
     chip.text = label
-    if (chip.isChecked) {
-        chip.isCloseIconVisible = true
-    }
-    chip.isChipIconVisible = false
+
     chip.isCheckable = true
     chip.isClickable = true
 
     chip.setOnCloseIconClickListener {
         chip.isChecked = false
-        productViewModel.getProducts()
+        productViewModel.resetFilters()
     }
     return chip
 }
