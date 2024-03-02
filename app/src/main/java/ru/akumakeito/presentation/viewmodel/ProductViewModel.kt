@@ -84,6 +84,8 @@ class ProductViewModel @Inject constructor(
         _uiState.update {
             it.copy(clearAllFilters = true, sortType = SortType.POPULARITY_ASC)
         }
+
+        applyFilters(Tags.notag)
     }
 
     fun applyFilters(tag: Tags) {

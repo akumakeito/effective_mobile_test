@@ -127,7 +127,6 @@ class FragmentCatalog : Fragment() {
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
 
 
-
                 }
 
             }
@@ -186,8 +185,16 @@ class FragmentCatalog : Fragment() {
             if (label == Tags.notag.tagName) {
                 isChecked =  true
                 lastSelectedChip = this
+                setOnCloseIconClickListener {  }
             } else {
                 isChecked = false
+
+                setOnCloseIconClickListener {
+                    chip.isChecked = false
+                    chip.isCloseIconVisible = chip.isChecked
+                    productViewModel.resetFilters()
+
+                }
             }
 
 
@@ -205,12 +212,7 @@ class FragmentCatalog : Fragment() {
 
             setOnClickListener(clickListener)
 
-            setOnCloseIconClickListener {
-                chip.isChecked = false
-                chip.isCloseIconVisible = chip.isChecked
-                productViewModel.resetFilters()
 
-            }
 
         }
 
