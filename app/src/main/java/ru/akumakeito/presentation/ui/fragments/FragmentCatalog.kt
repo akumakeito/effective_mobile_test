@@ -35,7 +35,7 @@ class FragmentCatalog : Fragment() {
     private lateinit var binding: FragmentCatalogBinding
     private val sortingList: MutableList<String> = mutableListOf()
     private lateinit var arrayAdapter: ArrayAdapter<String>
-
+    private var lastSelectedChip: Chip? = null
 
 
     companion object {
@@ -102,15 +102,9 @@ class FragmentCatalog : Fragment() {
                 chipgroup.addView(createChip(it))
             }
 
-            var lastSelectedChip: Chip? = null
-            val clickListener = View.OnClickListener {view ->
-                if (lastSelectedChip != view) {
-                    lastSelectedChip?.isCloseIconVisible = false
-                    lastSelectedChip = view as Chip
-                }
-            }
 
-            chipgroup.findViewById<Chip>(0).isChecked = true
+
+
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
 
@@ -129,19 +123,10 @@ class FragmentCatalog : Fragment() {
 
                     }
 
-                    chip.setOnClickListener(clickListener)
-
-
                     productViewModel.applyFilters(tag)
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
 
-                    chip.setOnCloseIconClickListener {
-                        chip.isChecked = false
-                        chip.isCloseIconVisible = chip.isChecked
-                        productViewModel.resetFilters()
-                        chipgroup.findViewById<Chip>(0).isChecked = true
 
-                    }
 
                 }
 
@@ -189,20 +174,45 @@ class FragmentCatalog : Fragment() {
 
     private fun createChip(label: String): Chip {
         val chip = Chip(requireContext(), null)
-        chip.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        chip.apply {
+            layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            text = label
 
-        chip.text = label
+            id = View.generateViewId()
 
-        chip.id = View.generateViewId()
+            if (label == Tags.notag.tagName) {
+                isChecked =  true
+                lastSelectedChip = this
+            } else {
+                isChecked = false
+            }
 
-        chip.isChecked = false
-        chip.isCloseIconVisible = chip.isChecked
 
-        chip.isCheckable = true
-        chip.isClickable = true
+            isCloseIconVisible = chip.isChecked
+
+            isCheckable = true
+            isClickable = true
+
+            val clickListener = View.OnClickListener { view ->
+                if (lastSelectedChip != view) {
+                    lastSelectedChip?.isCloseIconVisible = false
+                    lastSelectedChip = view as Chip
+                }
+            }
+
+            setOnClickListener(clickListener)
+
+            setOnCloseIconClickListener {
+                chip.isChecked = false
+                chip.isCloseIconVisible = chip.isChecked
+                productViewModel.resetFilters()
+
+            }
+
+        }
 
 
         return chip
