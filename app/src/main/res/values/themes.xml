@@ -38,7 +38,7 @@
         <item name="materialButtonStyle">@style/Widget.App.Button.</item>
         <item name="borderlessButtonStyle">@style/Widget.App.TextButton.Icon</item>
 
-        <item name="chipStyle">@style/ChipFilter</item>
+        <item name="chipStyle">@style/ChipInput</item>
 
         <item name="circularProgressIndicatorStyle">@style/ProgressBar</item>
 

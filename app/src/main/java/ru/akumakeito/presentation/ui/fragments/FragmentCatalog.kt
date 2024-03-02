@@ -99,6 +99,7 @@ class FragmentCatalog : Fragment() {
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
 
+
             }
 
 
@@ -136,7 +137,7 @@ override fun onResume() {
 
 
 private fun createChip(label: String): Chip {
-    val chip = Chip(requireContext(), null, R.style.ChipFilter)
+    val chip = Chip(requireContext(), null)
     chip.layoutParams = LinearLayout.LayoutParams(
         ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT

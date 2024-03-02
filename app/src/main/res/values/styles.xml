@@ -167,18 +167,24 @@
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
 
-    <style name="ChipFilter" parent="Widget.Material3.Chip.Filter">
-        <item name="chipBackgroundColor">@color/light_grey</item>
-        <item name="chipSurfaceColor">@color/light_grey</item>
+    <style name="ChipInput" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/chip_color_selector</item>
         <item name="chipStrokeWidth">0dp</item>
-        <item name="android:textColor">@color/grey</item>
+        <item name="chipSurfaceColor">@color/chip_color_selector</item>
+        <item name="android:textColor">@color/chip_text_color_selector</item>
         <item name="shapeAppearance">@style/ChipShape</item>
+        <item name="closeIconVisible">false</item>
         <item name="checkedIconVisible">false</item>
         <item name="closeIcon">@drawable/icon_type_small_close__state_default</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Chip</item>
     </style>
 
     <style name="ThemeOverlay.App.Chip" parent="">
         <item name="colorOnSurface">@color/light_grey</item>
+        <item name="colorSurfaceContainerLow">@color/light_grey</item>
+        <item name="colorSecondaryContainer">@color/dark_blue</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+
     </style>
 
     <style name="ChipShape" parent="ShapeAppearance.Material3.SmallComponent">

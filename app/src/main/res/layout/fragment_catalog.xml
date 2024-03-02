@@ -74,8 +74,11 @@
             android:id="@+id/chipgroup"
             app:singleSelection="true"
             app:singleLine="true"
+            style="@style/Widget.Material3.ChipGroup"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:checkedChip="@id/checked">
+
 
 
         </com.google.android.material.chip.ChipGroup>
