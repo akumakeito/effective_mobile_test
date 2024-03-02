@@ -13,7 +13,6 @@ import ru.akumakeito.effectivemobile_test.data.model.ProductEntity
 import ru.akumakeito.effectivemobile_test.data.model.toEntity
 import ru.akumakeito.effectivemobile_test.data.model.toProduct
 import ru.akumakeito.effectivemobile_test.domain.model.Product
-import ru.akumakeito.effectivemobile_test.domain.model.Tags
 import ru.akumakeito.effectivemobile_test.domain.repository.ProductRepository
 import ru.akumakeito.network.ProductApiService
 import ru.akumakeito.util.ImageDeserializer
@@ -76,33 +75,6 @@ class ProductsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTags(): List<String> {
-        val listTags = mutableListOf<String>()
-        Tags.entries.forEach {
-            listTags.add(it.tagName)
-        }
-
-        return listTags.toList()
-    }
-
-    override suspend fun getProductsByTag(tagName: String): List<Product> {
-        val tag = Tags.entries.find { it.tagName == tagName }
-        val productList = dataProduct
-        val filteredProductList = mutableListOf<Product>()
-//        productList.collect { products ->
-//            products.forEach { product ->
-//                product.tags.forEach {
-//                    if (it == tag) {
-//                        filteredProductList.add(product)
-//                    }
-//                }
-//
-//            }
-//
-//
-//        }
-        return filteredProductList.toList()
-    }
 
 
 

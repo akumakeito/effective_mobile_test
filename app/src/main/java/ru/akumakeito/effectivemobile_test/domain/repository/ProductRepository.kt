@@ -9,8 +9,6 @@ interface ProductRepository  {
     val favoriteProducts : Flow<List<Product>>
     suspend fun getProducts()
 
-    suspend fun getTags() : List<String>
-
     suspend fun addImageListToProduct(jsonString: String)
 
     suspend fun addImageListToProduct()
@@ -19,7 +17,6 @@ interface ProductRepository  {
 
     suspend fun getProductsById(id: String) : Product
 
-    suspend fun getProductsByTag(tagName: String): List<Product>
 
     suspend fun deleteAll()
 

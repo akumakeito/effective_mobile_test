@@ -72,39 +72,11 @@
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipgroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:checkedChip="@id/chipAll">
+            app:singleSelection="true"
+            app:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/showAll"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipFace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/face"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipBody"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/body"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipSuntan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/suntan"/>
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipMask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mask"/>
 
         </com.google.android.material.chip.ChipGroup>
 

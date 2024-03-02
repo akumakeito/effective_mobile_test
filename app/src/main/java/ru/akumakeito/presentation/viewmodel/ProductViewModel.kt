@@ -2,7 +2,6 @@ package ru.akumakeito.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -44,17 +43,15 @@ class ProductViewModel @Inject constructor(
     private val getProductByIdUseCase: GetProductByIdUseCase,
     private val repository: ProductRepository,
     private val updateFavoriteProductUseCase: UpdateFavoriteProductUseCase,
-    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     init {
         getTags()
-
         getProducts()
 
     }
 
-    private var _tags = listOf<String>("")
+    private lateinit var _tags :List<String>
     val tags = _tags
 
     private val _products = repository.dataProduct
@@ -103,10 +100,7 @@ class ProductViewModel @Inject constructor(
     }
 
     private fun getTags() {
-
-        _tags = Tags.values().map { it.tagName }
-
-        Log.d("listTags", _tags.toString())
+        _tags = Tags.entries.map { it.tagName }
     }
 
 

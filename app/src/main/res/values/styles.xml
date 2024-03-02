@@ -167,16 +167,25 @@
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
     </style>
 
-    <style name="ChipSuggestion" parent="Widget.Material3.Chip.Suggestion">
+    <style name="ChipFilter" parent="Widget.Material3.Chip.Filter">
         <item name="chipBackgroundColor">@color/light_grey</item>
+        <item name="chipSurfaceColor">@color/light_grey</item>
         <item name="chipStrokeWidth">0dp</item>
         <item name="android:textColor">@color/grey</item>
         <item name="shapeAppearance">@style/ChipShape</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="closeIcon">@drawable/icon_type_small_close__state_default</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Chip" parent="">
+        <item name="colorOnSurface">@color/light_grey</item>
     </style>
 
     <style name="ChipShape" parent="ShapeAppearance.Material3.SmallComponent">
         <item name="cornerSize">50%</item>
     </style>
+
+
 
     <style name="NavBarStyle" parent="Widget.Material3.BottomNavigationView">
         <item name="itemActiveIndicatorStyle">@style/NavBarActiveItemStyle</item>
