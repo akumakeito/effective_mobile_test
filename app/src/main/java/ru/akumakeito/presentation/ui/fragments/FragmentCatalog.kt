@@ -33,12 +33,14 @@ class FragmentCatalog : Fragment() {
 
     val productViewModel: ProductViewModel by viewModels()
     private lateinit var binding: FragmentCatalogBinding
-    private val sortingList : MutableList<String> = mutableListOf()
+    private val sortingList: MutableList<String> = mutableListOf()
     private lateinit var arrayAdapter: ArrayAdapter<String>
+
+
 
     companion object {
         @ApplicationContext
-        lateinit var context : Context
+        lateinit var context: Context
     }
 
     override fun onAttach(context: Context) {
@@ -84,7 +86,9 @@ class FragmentCatalog : Fragment() {
             sortingAutocompleteTv.setAdapter(arrayAdapter)
 
             sortingAutocompleteTv.setOnItemClickListener { parent, _, position, _ ->
-                val selectedItem = SortType.entries.find {it.value == parent.getItemAtPosition(position).toString() } ?: SortType.POPULARITY_ASC
+                val selectedItem = SortType.entries.find {
+                    it.value == parent.getItemAtPosition(position).toString()
+                } ?: SortType.POPULARITY_ASC
 
                 productViewModel.sortBy(selectedItem)
 
@@ -95,31 +99,49 @@ class FragmentCatalog : Fragment() {
             cardList.itemAnimator = null
 
             productViewModel.tags.forEach {
-                 chipgroup.addView(createChip(it))
+                chipgroup.addView(createChip(it))
             }
 
+            var lastSelectedChip: Chip? = null
+            val clickListener = View.OnClickListener {view ->
+                if (lastSelectedChip != view) {
+                    lastSelectedChip?.isCloseIconVisible = false
+                    lastSelectedChip = view as Chip
+                }
+            }
+
+            chipgroup.findViewById<Chip>(0).isChecked = true
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
-                Log.d("chip", "checked")
 
                 if (checkedId.isEmpty()) {
                     productViewModel.applyFilters(Tags.notag)
                 } else {
 
                     val chip = chipgroup.findViewById<Chip>(checkedId.first())
+
+
+                    Log.d("chip", "chip ${chip.text}")
+                    Log.d("chip", "lastSelectedChip ${lastSelectedChip?.text}")
                     val tag = Tags.entries.find { it.tagName == chip.text } ?: Tags.notag
                     chip.apply {
-
-                        chip.isCloseIconVisible = chip.isChecked
+                        isCloseIconVisible = isChecked
 
                     }
 
-                    chip.setOnClickListener {
-                        chip.isCloseIconVisible = chip.isChecked
-                    }
+                    chip.setOnClickListener(clickListener)
+
 
                     productViewModel.applyFilters(tag)
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
+
+                    chip.setOnCloseIconClickListener {
+                        chip.isChecked = false
+                        chip.isCloseIconVisible = chip.isChecked
+                        productViewModel.resetFilters()
+                        chipgroup.findViewById<Chip>(0).isChecked = true
+
+                    }
 
                 }
 
@@ -154,38 +176,36 @@ class FragmentCatalog : Fragment() {
 
 
 
-    return binding.root
-}
+        return binding.root
+    }
 
 
-override fun onResume() {
-    super.onResume()
+    override fun onResume() {
+        super.onResume()
 
-    binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
-}
+        binding.sortingAutocompleteTv.setAdapter(arrayAdapter)
+    }
 
 
-private fun createChip(label: String): Chip {
-    val chip = Chip(requireContext(), null)
-    chip.layoutParams = LinearLayout.LayoutParams(
-        ViewGroup.LayoutParams.WRAP_CONTENT,
-        ViewGroup.LayoutParams.WRAP_CONTENT
-    )
+    private fun createChip(label: String): Chip {
+        val chip = Chip(requireContext(), null)
+        chip.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
 
-    chip.text = label
+        chip.text = label
 
-    chip.isChecked = false
-    chip.isCloseIconVisible = chip.isChecked
+        chip.id = View.generateViewId()
 
-    chip.isCheckable = true
-    chip.isClickable = true
-
-    chip.setOnCloseIconClickListener {
         chip.isChecked = false
         chip.isCloseIconVisible = chip.isChecked
-        productViewModel.resetFilters()
+
+        chip.isCheckable = true
+        chip.isClickable = true
+
+
+        return chip
     }
-    return chip
-}
 }
 
