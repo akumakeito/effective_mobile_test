@@ -24,6 +24,7 @@
             android:id="@+id/item_images"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_pic_height"
+            android:clickable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

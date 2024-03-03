@@ -17,7 +17,6 @@ interface OnCardInteractionListener {
     fun onCardClick(product: Product) {}
     fun onFavoriteClick(product: Product) {}
 
-    fun onImageSwipe(product: Product) {}
 }
 
 class CardItemAdapter(
@@ -46,7 +45,10 @@ class CardItemAdapter(
         fun bind(product: Product) {
             binding.apply {
 
-                itemImages.adapter = ItemImageAdapter(product.imageList)
+                itemImages.adapter = ItemImageAdapter(product.imageList, object : OnInteractionListener {
+                    override fun onCardImageClick(product: Product) {
+                        listener.onCardClick(product)
+                    }}, product )
 
                 TabLayoutMediator(tabLayout,itemImages) { tab, position -> }.attach()
 
@@ -74,6 +76,9 @@ class CardItemAdapter(
                 btnFavorite.isChecked = product.isFavorite
 
                 itemCard.setOnClickListener {
+                    listener.onCardClick(product)
+                }
+                itemImages.setOnClickListener {
                     listener.onCardClick(product)
                 }
 

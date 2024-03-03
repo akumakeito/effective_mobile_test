@@ -11,10 +11,13 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.FragmentAboutItemBinding
 import ru.akumakeito.presentation.ui.adapters.CharacteristicsItemAdapter
+import ru.akumakeito.presentation.ui.adapters.ItemImageAdapter
+import ru.akumakeito.presentation.ui.adapters.OnInteractionListener
 import ru.akumakeito.presentation.viewmodel.ProductViewModel
 import ru.akumakeito.util.StringUtil.Companion.getAvailableString
 import ru.akumakeito.util.StringUtil.Companion.getFeedbackString
@@ -42,11 +45,9 @@ class FragmentAboutItem() : Fragment() {
         productViewModel.product.observe(viewLifecycleOwner) { product ->
             binding.apply {
 
-                try {
-                    itemImages.setImageResource(product.imageList[0])
-                } catch (e: Exception) {
-                    e.message
-                }
+                itemImages.adapter = ItemImageAdapter(product.imageList, object :
+                    OnInteractionListener {}, product)
+                TabLayoutMediator(tabLayout,itemImages) { tab, position -> }.attach()
 
                 tvOldPrice.text = requireContext().getString(
                     R.string.price_with_unit, product.price.price, product.price.unit
