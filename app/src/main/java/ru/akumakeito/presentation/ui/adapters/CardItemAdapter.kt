@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.CardItemBinding
@@ -45,14 +46,9 @@ class CardItemAdapter(
         fun bind(product: Product) {
             binding.apply {
 
-                try {
-                    itemImages.setImageResource(product.imageList[0])
-                } catch (e : Exception) {
-                    e.message
-                }
+                itemImages.adapter = ItemImageAdapter(product.imageList)
 
-//                itemImages.adapter = ItemImageAdapter(product.imageList)
-
+                TabLayoutMediator(tabLayout,itemImages) { tab, position -> }.attach()
 
                 tvOldPrice.text = context.getString(
                     R.string.price_with_unit, product.price.price, product.price.unit

@@ -2,52 +2,47 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing2"
+    android:layout_marginEnd="@dimen/spacing2"
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
-    android:id="@+id/item_card"
-    android:layout_marginTop="@dimen/spacing2"
-    android:layout_marginEnd="@dimen/spacing2"
-    app:strokeColor="@color/light_grey"
-    app:strokeWidth="@dimen/card_stroke_width"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/corner_radius_8">
+    app:cardCornerRadius="@dimen/corner_radius_8"
+    app:strokeColor="@color/light_grey"
+    app:strokeWidth="@dimen/card_stroke_width">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-        <ImageView
+
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/item_images"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_pic_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/item_1"/>
-
-<!--        <androidx.viewpager2.widget.ViewPager2-->
-<!--            android:id="@+id/item_images"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/item_pic_height"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"/>-->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/OnImageTabLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/item_images"
+            android:layout_height="@dimen/on_image_tab_layout_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:tabBackground="@drawable/tab_selector"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="0dp" />
+            app:layout_constraintBottom_toBottomOf="@id/item_images" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/image_barrier"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tab_layout" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_favorite"
@@ -68,7 +63,7 @@
             android:layout_marginTop="@dimen/spacing6"
             android:text="@string/price_with_unit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_images"
+            app:layout_constraintTop_toBottomOf="@id/image_barrier"
             tools:text="899 P" />
 
         <TextView
@@ -76,9 +71,9 @@
             style="?attr/textAppearanceTitleMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price_with_unit"
             android:layout_marginStart="@dimen/spacing6"
             android:layout_marginTop="@dimen/spacing2"
+            android:text="@string/price_with_unit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_old_price"
             tools:text="549 P" />
@@ -116,12 +111,12 @@
             style="?attr/textAppearanceBodySmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing2"
             android:layout_marginHorizontal="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing2"
             android:textSize="@dimen/txt10"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintEnd_toEndOf="parent"
             app:lineHeight="@dimen/line12"
             tools:text="Пенка для умывания`A`PIEU` `DEEP CLEAN` 200 мл" />
 
@@ -129,14 +124,14 @@
             android:id="@+id/rating_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing6"
+            android:layout_marginTop="@dimen/spacing4"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:visibility="visible"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/barrier"
-            android:layout_marginStart="@dimen/spacing6"
-            android:layout_marginTop="@dimen/spacing4">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -146,19 +141,19 @@
 
             <TextView
                 android:id="@+id/tv_rating"
+                style="?attr/textAppearanceTitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="4.3"
-                style="?attr/textAppearanceTitleSmall"
+                android:layout_marginHorizontal="@dimen/spacing2"
                 android:textColor="@color/orange"
-                android:layout_marginHorizontal="@dimen/spacing2"/>
+                tools:text="4.3" />
 
             <TextView
                 android:id="@+id/tv_comments_num"
+                style="?attr/textAppearanceTitleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="(4)"
-                style="?attr/textAppearanceTitleSmall"/>
+                tools:text="(4)" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.Barrier
@@ -166,19 +161,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:barrierDirection="top"
-            app:constraint_referenced_ids="btn_add_to_cart"/>
+            app:constraint_referenced_ids="btn_add_to_cart" />
 
         <Button
             android:id="@+id/btn_add_to_cart"
             style="?attr/materialIconButtonFilledStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/icon_type_plus__state_default"
-            android:background="@drawable/add_button_shape"
             android:layout_marginTop="@dimen/spacing3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
+            android:background="@drawable/add_button_shape"
+            app:icon="@drawable/icon_type_plus__state_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

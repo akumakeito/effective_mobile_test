@@ -213,7 +213,7 @@
         <item name="android:progressBackgroundTint">@color/orange</item>
     </style>
 
-    <style name="Widget.App.TabLayout" parent="Widget.Material3.TabLayout">
+    <style name="FavoriteTabLayout" parent="Widget.Material3.TabLayout">
         <item name="android:background">@color/light_grey</item>
         <item name="tabTextAppearance">@style/TextAppearance.App.TitleMedium</item>
         <item name="tabTextColor">@color/tab_text_color_selector</item>
@@ -222,6 +222,20 @@
         <item name="tabIndicatorFullWidth">true</item>
         <item name="tabIndicator">@drawable/tab_indicator_shape</item>
     </style>
+
+    <style name="OnImageTabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="tabBackground">@drawable/tab_selector</item>
+        <item name="tabIndicatorGravity">center</item>
+        <item name="tabGravity">center</item>
+        <item name="tabIndicatorFullWidth">false</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabPaddingStart">4dp</item>
+        <item name="tabPaddingEnd">4dp</item>
+        <item name="tabMaxWidth">@dimen/spacing16</item>
+    </style>
+
 
     <style name="ProgressBar" parent="Widget.Material3.CircularProgressIndicator">
         <item name="indicatorColor">@color/pink</item>

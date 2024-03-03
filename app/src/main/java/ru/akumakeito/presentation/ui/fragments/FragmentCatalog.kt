@@ -89,6 +89,10 @@ class FragmentCatalog : Fragment() {
 
             chipGroup = chipgroup
 
+            productViewModel.tags.forEach {
+                chipgroup.addView(createChip(it))
+            }
+
             sortingAutocompleteTv.setAdapter(arrayAdapter)
 
             cardList.adapter = cardAdapter
@@ -110,9 +114,7 @@ class FragmentCatalog : Fragment() {
                 productViewModel.setSortType(selectedItem)
                 cardList.smoothScrollToPosition(0)
             }
-            productViewModel.tags.forEach {
-                chipgroup.addView(createChip(it))
-            }
+
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
                 cardList.smoothScrollToPosition(0)
@@ -198,9 +200,6 @@ class FragmentCatalog : Fragment() {
             isClickable = true
 
             val clickListener = View.OnClickListener { view ->
-                if (label == Tags.notag.tagName) {
-                    return@OnClickListener
-                }
 
                 if (lastSelectedChip != view) {
                     lastSelectedChip?.isCloseIconVisible = false
