@@ -39,7 +39,7 @@ class FragmentCatalog : Fragment() {
     private var lastSelectedChip: Chip? = null
     private var defaultCheckedChipId: Int = 0
     private lateinit var cardAdapter: CardItemAdapter
-    private lateinit var chipGroup : ChipGroup
+    private lateinit var chipGroup: ChipGroup
 
 
     companion object {
@@ -107,18 +107,21 @@ class FragmentCatalog : Fragment() {
                     it.value == parent.getItemAtPosition(position).toString()
                 } ?: SortType.POPULARITY_ASC
 
-
-                productViewModel.sortBy(selectedItem)
-
+                productViewModel.setSortType(selectedItem)
+                cardList.smoothScrollToPosition(0)
             }
             productViewModel.tags.forEach {
                 chipgroup.addView(createChip(it))
             }
 
             chipgroup.setOnCheckedStateChangeListener { chipgroup, checkedId ->
-
+                cardList.smoothScrollToPosition(0)
                 if (checkedId.isEmpty()) {
-                    productViewModel.applyFilters(Tags.notag)
+
+                    productViewModel.setFilter(Tags.notag)
+
+
+//                    productViewModel.applyFilters(Tags.notag)
                 } else {
 
                     val chip = chipgroup.findViewById<Chip>(checkedId.first())
@@ -142,7 +145,9 @@ class FragmentCatalog : Fragment() {
 
                     }
 
-                    productViewModel.applyFilters(tag)
+                    productViewModel.setFilter(tag)
+
+//                    productViewModel.applyFilters(tag)
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
 
 
@@ -201,7 +206,7 @@ class FragmentCatalog : Fragment() {
                 isChecked = true
                 lastSelectedChip = this
 
-                setOnClickListener {  }
+                setOnClickListener { }
             } else {
                 isChecked = false
             }

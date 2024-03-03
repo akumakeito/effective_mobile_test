@@ -1,15 +1,16 @@
 package ru.akumakeito.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.akumakeito.effectivemobile_test.domain.model.Price
@@ -46,23 +47,36 @@ class ProductViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
+        getTags()
         getProducts()
+    }
+
+    private fun getTags() {
+        _tags = Tags.entries.map { it.tagName }
     }
 
     private lateinit var _tags: List<String>
     val tags = _tags
 
-    private val _products = repository.dataProduct
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _products = _uiState.flatMapLatest { filter ->
+        repository.dataProduct.map { productList ->
+            applyFilters(filter.filterTag, productList)
+        }.map { productList ->
+            sortBy(filter.sortType, productList)
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
     val products = _products
 
-    private val _sortedProducts = MutableStateFlow<List<Product>>(emptyList())
-    val sortedProducts = _sortedProducts as StateFlow<List<Product>>
-
-    private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
-    val filteredProducts = _filteredProducts as StateFlow<List<Product>>
-
-    private val _filteredAndSortProducts = MutableStateFlow<List<Product>>(emptyList())
-    val filteredAndSortProducts = _filteredAndSortProducts as StateFlow<List<Product>>
+//    private val _sortedProducts = MutableStateFlow<List<Product>>(emptyList())
+//    val sortedProducts = _sortedProducts as StateFlow<List<Product>>
+//
+//    private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
+//    val filteredProducts = _filteredProducts as StateFlow<List<Product>>
+//
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
     val favoriteProducts = _favoriteProducts
@@ -71,49 +85,33 @@ class ProductViewModel @Inject constructor(
     val product = _product
 
 
-    private val _uiState = MutableStateFlow(UiState())
-    val uiState = _uiState.asStateFlow()
-
-
     fun setSortType(sortType: SortType) {
         _uiState.update {
             it.copy(sortType = sortType)
         }
     }
 
+    fun setFilter(filterTag: Tags) {
+        _uiState.update {
+            it.copy(filterTag = filterTag)
+        }
+    }
+
 
     fun resetFilters() {
         _uiState.update {
-            it.copy(clearAllFilters = true, sortType = SortType.POPULARITY_ASC)
-        }
-
-        applyFilters(Tags.notag)
-    }
-
-    fun applyFilters(tag: Tags) {
-        Log.d("chip", "vm ${tag}")
-        viewModelScope.launch {
-            _products.map {
-                if (tag == Tags.notag){
-                  it
-                } else {
-                    it.filter { product ->
-                        product.tags.contains(tag)
-                    }
-                }
-
-            }.collect {
-                _filteredProducts.value = it
-
-                Log.d("chip", "filtered list ${it}")
-            }
-        }
-
-
-        _uiState.update {
-            it.copy(applyAllFilters = true)
+            it.copy(filterTag = Tags.notag)
         }
     }
+
+    private fun applyFilters(tag: Tags, list: List<Product>) = if (tag == Tags.notag) {
+        list
+    } else {
+        list.filter { product ->
+            product.tags.contains(tag)
+        }
+    }
+
 
     fun getProducts() {
         viewModelScope.launch {
@@ -131,28 +129,12 @@ class ProductViewModel @Inject constructor(
         }
     }
 
-    fun sortBy(sortParam: SortType) {
-        viewModelScope.launch {
-            setSortType(sortParam)
-
-            _products.map {
-                when (sortParam) {
-                    SortType.POPULARITY_ASC -> it.sortedByDescending { it.feedback?.rating }
-                    SortType.PRICE_ASC -> it.sortedBy { it.price.priceWithDiscount }
-                    SortType.PRICE_DESC -> it.sortedByDescending { it.price.priceWithDiscount }
-                }
-
-            }.collect {
-                _sortedProducts.value = it
-                Log.d("sorting", "vm ${sortParam}")
-
-                Log.d("sorting", "sorted list ${it}")
-            }
-
-
-        }
-
+    fun sortBy(sortParam: SortType, list: List<Product>) = when (sortParam) {
+        SortType.POPULARITY_ASC -> list.sortedByDescending { it.feedback?.rating }
+        SortType.PRICE_ASC -> list.sortedBy { it.price.priceWithDiscount }
+        SortType.PRICE_DESC -> list.sortedByDescending { it.price.priceWithDiscount }
     }
+
 
     fun getProductById(id: String) {
         viewModelScope.launch {
