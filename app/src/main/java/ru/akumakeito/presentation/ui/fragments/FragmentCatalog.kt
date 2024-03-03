@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collectLatest
@@ -37,6 +38,8 @@ class FragmentCatalog : Fragment() {
     private lateinit var arrayAdapter: ArrayAdapter<String>
     private var lastSelectedChip: Chip? = null
     private var defaultCheckedChipId: Int = 0
+    private lateinit var cardAdapter: CardItemAdapter
+    private lateinit var chipGroup : ChipGroup
 
 
     companion object {
@@ -67,7 +70,7 @@ class FragmentCatalog : Fragment() {
     ): View {
         binding = FragmentCatalogBinding.inflate(inflater, container, false)
 
-        val adapter = CardItemAdapter(requireContext(), object : OnCardInteractionListener {
+        cardAdapter = CardItemAdapter(requireContext(), object : OnCardInteractionListener {
             override fun onCardClick(product: Product) {
                 val bundle = Bundle()
                 bundle.putString("PRODUCT_ID_KEY", product.id)
@@ -84,21 +87,30 @@ class FragmentCatalog : Fragment() {
 
         binding.apply {
 
+            chipGroup = chipgroup
+
             sortingAutocompleteTv.setAdapter(arrayAdapter)
 
+            cardList.adapter = cardAdapter
+            cardList.itemAnimator = null
+
+            return binding.root
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
             sortingAutocompleteTv.setOnItemClickListener { parent, _, position, _ ->
                 val selectedItem = SortType.entries.find {
                     it.value == parent.getItemAtPosition(position).toString()
                 } ?: SortType.POPULARITY_ASC
 
+
                 productViewModel.sortBy(selectedItem)
 
             }
-
-
-            cardList.adapter = adapter
-            cardList.itemAnimator = null
-
             productViewModel.tags.forEach {
                 chipgroup.addView(createChip(it))
             }
@@ -111,21 +123,19 @@ class FragmentCatalog : Fragment() {
 
                     val chip = chipgroup.findViewById<Chip>(checkedId.first())
 
-
                     Log.d("chip", "chip ${chip.text}")
                     Log.d("chip", "lastSelectedChip ${lastSelectedChip?.text}")
                     val tag = Tags.entries.find { it.tagName == chip.text } ?: Tags.notag
                     chip.apply {
                         isCloseIconVisible = isChecked
+
                         setOnCloseIconClickListener {
                             if (tag != Tags.notag) {
 
-                                    chipgroup.clearCheck()
-                                    isCloseIconVisible = chip.isChecked
-                                    productViewModel.resetFilters()
-                                chipgroup.check(defaultCheckedChipId)
-
-
+                                chipGroup.clearCheck()
+                                isCloseIconVisible = chip.isChecked
+                                productViewModel.resetFilters()
+                                chipGroup.check(defaultCheckedChipId)
 
                             }
                         }
@@ -143,33 +153,26 @@ class FragmentCatalog : Fragment() {
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-//                    launch {
-//                        productViewModel.products.collectLatest {
-//                            adapter.submitList(it)
-//                        }
-//                    }
+                    launch {
+                        productViewModel.products.collectLatest {
+                            cardAdapter.submitList(it)
+                        }
+                    }
 
                     launch {
                         productViewModel.sortedProducts.collectLatest {
-                            adapter.submitList(it)
+                            cardAdapter.submitList(it)
                         }
                     }
 
                     launch {
                         productViewModel.filteredProducts.collectLatest {
-                            adapter.submitList(it)
+                            cardAdapter.submitList(it)
                         }
                     }
-
                 }
             }
         }
-
-
-
-
-
-        return binding.root
     }
 
 
@@ -191,21 +194,26 @@ class FragmentCatalog : Fragment() {
 
             id = View.generateViewId()
 
+
+
             if (label == Tags.notag.tagName) {
                 isChecked = true
                 lastSelectedChip = this
-                defaultCheckedChipId = id
+
+                setOnClickListener {  }
             } else {
                 isChecked = false
             }
 
-
             isCloseIconVisible = chip.isChecked
-
             isCheckable = true
             isClickable = true
 
             val clickListener = View.OnClickListener { view ->
+                if (label == Tags.notag.tagName) {
+                    return@OnClickListener
+                }
+
                 if (lastSelectedChip != view) {
                     lastSelectedChip?.isCloseIconVisible = false
                     lastSelectedChip = view as Chip
@@ -216,7 +224,6 @@ class FragmentCatalog : Fragment() {
 
 
         }
-
 
         return chip
     }

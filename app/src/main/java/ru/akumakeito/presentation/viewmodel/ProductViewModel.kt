@@ -46,7 +46,6 @@ class ProductViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        getTags()
         getProducts()
 
     }
@@ -62,6 +61,9 @@ class ProductViewModel @Inject constructor(
 
     private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
     val filteredProducts = _filteredProducts as StateFlow<List<Product>>
+
+    private val _filteredAndSortProducts = MutableStateFlow<List<Product>>(emptyList())
+    val filteredAndSortProducts = _filteredAndSortProducts as StateFlow<List<Product>>
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
     val favoriteProducts = _favoriteProducts
@@ -91,7 +93,7 @@ class ProductViewModel @Inject constructor(
     fun applyFilters(tag: Tags) {
         Log.d("chip", "vm ${tag}")
         viewModelScope.launch {
-            _sortedProducts.map {
+            _products.map {
                 if (tag == Tags.notag){
                   it
                 } else {
@@ -123,11 +125,6 @@ class ProductViewModel @Inject constructor(
 
     }
 
-    private fun getTags() {
-        _tags = Tags.entries.map { it.tagName }
-    }
-
-
     fun updateFavoriteProduct(product: Product) {
         viewModelScope.launch {
             updateFavoriteProductUseCase.execute(product)
@@ -137,8 +134,8 @@ class ProductViewModel @Inject constructor(
     fun sortBy(sortParam: SortType) {
         viewModelScope.launch {
 
-            _products.map {
 
+            _products.map {
                 when (sortParam) {
                     SortType.POPULARITY_ASC -> it.sortedByDescending { it.feedback?.rating }
                     SortType.PRICE_ASC -> it.sortedBy { it.price.priceWithDiscount }
