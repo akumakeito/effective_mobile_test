@@ -91,7 +91,7 @@ class ProductViewModel @Inject constructor(
     fun applyFilters(tag: Tags) {
         Log.d("chip", "vm ${tag}")
         viewModelScope.launch {
-            _products.map {
+            _sortedProducts.map {
                 if (tag == Tags.notag){
                   it
                 } else {

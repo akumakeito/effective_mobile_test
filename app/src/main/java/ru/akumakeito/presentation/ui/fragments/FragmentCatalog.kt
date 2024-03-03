@@ -143,11 +143,11 @@ class FragmentCatalog : Fragment() {
 
             lifecycleScope.launch {
                 viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                    launch {
-                        productViewModel.products.collectLatest {
-                            adapter.submitList(it)
-                        }
-                    }
+//                    launch {
+//                        productViewModel.products.collectLatest {
+//                            adapter.submitList(it)
+//                        }
+//                    }
 
                     launch {
                         productViewModel.sortedProducts.collectLatest {
