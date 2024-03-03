@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -59,8 +59,8 @@ class ProductViewModel @Inject constructor(
     val tags = _tags
 
     private val _uiState = MutableStateFlow(UiState())
-    val uiState = _uiState.asStateFlow()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val _products = _uiState.flatMapLatest { filter ->
         repository.dataProduct.map { productList ->
             applyFilters(filter.filterTag, productList)
@@ -70,13 +70,6 @@ class ProductViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     val products = _products
-
-//    private val _sortedProducts = MutableStateFlow<List<Product>>(emptyList())
-//    val sortedProducts = _sortedProducts as StateFlow<List<Product>>
-//
-//    private val _filteredProducts = MutableStateFlow<List<Product>>(emptyList())
-//    val filteredProducts = _filteredProducts as StateFlow<List<Product>>
-//
 
     private val _favoriteProducts = repository.favoriteProducts.asLiveData()
     val favoriteProducts = _favoriteProducts

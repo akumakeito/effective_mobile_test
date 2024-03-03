@@ -121,7 +121,6 @@ class FragmentCatalog : Fragment() {
                     productViewModel.setFilter(Tags.notag)
 
 
-//                    productViewModel.applyFilters(Tags.notag)
                 } else {
 
                     val chip = chipgroup.findViewById<Chip>(checkedId.first())
@@ -147,7 +146,6 @@ class FragmentCatalog : Fragment() {
 
                     productViewModel.setFilter(tag)
 
-//                    productViewModel.applyFilters(tag)
                     Log.d("chip", "${chip.text} ${chip.isChecked}")
 
 
@@ -164,18 +162,6 @@ class FragmentCatalog : Fragment() {
                         }
                     }
 
-
-//                    launch {
-//                        productViewModel.sortedProducts.collectLatest {
-//                            cardAdapter.submitList(it)
-//                        }
-//                    }
-//
-//                    launch {
-//                        productViewModel.filteredProducts.collectLatest {
-//                            cardAdapter.submitList(it)
-//                        }
-//                    }
                 }
             }
         }
@@ -200,13 +186,9 @@ class FragmentCatalog : Fragment() {
 
             id = View.generateViewId()
 
-
-
             if (label == Tags.notag.tagName) {
                 isChecked = true
                 lastSelectedChip = this
-
-                setOnClickListener { }
             } else {
                 isChecked = false
             }
@@ -225,10 +207,7 @@ class FragmentCatalog : Fragment() {
                     lastSelectedChip = view as Chip
                 }
             }
-
             setOnClickListener(clickListener)
-
-
         }
 
         return chip
