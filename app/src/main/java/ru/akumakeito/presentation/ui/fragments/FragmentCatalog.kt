@@ -159,17 +159,18 @@ class FragmentCatalog : Fragment() {
                         }
                     }
 
-                    launch {
-                        productViewModel.sortedProducts.collectLatest {
-                            cardAdapter.submitList(it)
-                        }
-                    }
 
-                    launch {
-                        productViewModel.filteredProducts.collectLatest {
-                            cardAdapter.submitList(it)
-                        }
-                    }
+//                    launch {
+//                        productViewModel.sortedProducts.collectLatest {
+//                            cardAdapter.submitList(it)
+//                        }
+//                    }
+//
+//                    launch {
+//                        productViewModel.filteredProducts.collectLatest {
+//                            cardAdapter.submitList(it)
+//                        }
+//                    }
                 }
             }
         }

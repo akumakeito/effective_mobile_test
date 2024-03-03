@@ -47,7 +47,6 @@ class ProductViewModel @Inject constructor(
 
     init {
         getProducts()
-
     }
 
     private lateinit var _tags: List<String>
@@ -70,6 +69,7 @@ class ProductViewModel @Inject constructor(
 
     private val _product = MutableLiveData(emptyProduct)
     val product = _product
+
 
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
@@ -133,7 +133,7 @@ class ProductViewModel @Inject constructor(
 
     fun sortBy(sortParam: SortType) {
         viewModelScope.launch {
-
+            setSortType(sortParam)
 
             _products.map {
                 when (sortParam) {
