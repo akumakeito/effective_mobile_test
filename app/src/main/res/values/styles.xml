@@ -113,6 +113,7 @@
         <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Small.</item>
         <item name="android:textColor">@color/black</item>
         <item name="endIconTint">@color/dark_grey</item>
+        <item name="errorEnabled">true</item>
         <item name="hintTextAppearance">@style/OutlinedInputHint</item>
         <item name="android:textAppearance">@style/OutlinedInputText</item>
         <item name="boxBackgroundColor">@color/light_grey</item>

@@ -50,19 +50,36 @@ class FragmentEnterAccount : Fragment() {
 
                 override fun afterTextChanged(s: Editable?) {
                     val text = s.toString()
-                    if (!StringUtil.isOnlyRussianLetters(text)) {
-                        eTName.setError(getString(R.string.enter_name_on_rus))
-
-                    } else {
+                    if (StringUtil.isOnlyRussianLetters(text) && text.isNotBlank()) {
+                        inputNameLayout.error = null
                         userViewModel.setUser(name = text)
+                    } else {
+                        inputNameLayout.error = getString(R.string.enter_name_on_rus)
                     }
                 }
 
             })
 
-            eTSurname.addTextChangedListener {
-                userViewModel.setUser(surname = eTSurname.text.toString())
-            }
+            eTSurname.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val text = s.toString()
+                    if (StringUtil.isOnlyRussianLetters(text) && text.isNotBlank()) {
+                        inputSurnameLayout.error = null
+                        userViewModel.setUser(surname = text)
+                    } else {
+                        inputSurnameLayout.error = getString(R.string.enter_surname_on_rus)
+                    }
+                }
+
+            })
 
             eTPhoneNumber.addTextChangedListener {
                 userViewModel.setUser(phoneNumber = eTPhoneNumber.text.toString())
@@ -81,10 +98,8 @@ class FragmentEnterAccount : Fragment() {
             userViewModel.userRegistry.observe(viewLifecycleOwner) {
                 Log.d("registrationprob", it.toString())
 
-                btnEnter.isEnabled = !(eTName.text.toString().isBlank() || eTSurname.text.toString().isBlank() || eTPhoneNumber.text.toString().isBlank())
+                btnEnter.isEnabled = it.name.isNotBlank() && it.surname.isNotBlank() && it.phoneNumber.isNotBlank()
             }
-
-//            eTPhoneNumber.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         }
     }

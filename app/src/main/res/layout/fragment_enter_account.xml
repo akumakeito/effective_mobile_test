@@ -40,6 +40,7 @@
         android:layout_marginHorizontal="@dimen/spacing16"
         android:layout_marginBottom="@dimen/spacing16"
         android:hint="@string/name"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/input_surname_layout"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"
         app:endIconMode="clear_text">
@@ -60,6 +61,7 @@
         android:layout_marginHorizontal="@dimen/spacing16"
         style="?attr/textInputOutlinedStyle"
         android:hint="@string/surname"
+        app:errorEnabled="true"
         android:layout_marginBottom="@dimen/spacing16"
         app:layout_constraintBottom_toTopOf="@id/input_phone_layout"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"

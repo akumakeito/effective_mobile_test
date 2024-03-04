@@ -49,6 +49,7 @@
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_code">+7</string>
-    <string name="enter_name_on_rus">Введите имя на русском языке</string>
+    <string name="enter_name_on_rus">Введите имя на русском языке, без пробелов и символов</string>
+    <string name="enter_surname_on_rus">Введите фамилию на русском языке, без пробелов и символов</string>
 
 </resources>
