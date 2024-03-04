@@ -103,9 +103,11 @@ class FragmentAboutItem() : Fragment() {
                         R.string.price_with_unit, product.price.price, product.price.unit
                     )
 
-                    val productInfoAdapter = ProductInfoItemAdapter(requireContext(), product.info)
+                    val productInfoAdapter = ProductInfoItemAdapter()
 
                     rvProductInfo.adapter = productInfoAdapter
+
+                    productInfoAdapter.submitList(product.info)
 
 
                     tvHideOrShowIngr.setOnClickListener {

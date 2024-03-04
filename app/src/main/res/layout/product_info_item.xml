@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:paddingBottom="@dimen/spacing4"
     android:paddingTop="@dimen/spacing12"
+    android:clickable="false"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="Артикул товара"
-        android:layout_weight="2"
+        android:layout_weight="1"
         style="?attr/textAppearanceBodyMedium"/>
 
     <TextView
