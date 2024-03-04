@@ -58,6 +58,11 @@ class StringUtil (@ApplicationContext private val context: Context) {
             textView.text = formattedPhoneNumber
         }
 
+        fun isOnlyRussianLetters(input: String): Boolean {
+            val russianLettersRegex = Regex("^[а-яА-ЯёЁ]+$")
+            return russianLettersRegex.matches(input)
+        }
+
     }
 
 

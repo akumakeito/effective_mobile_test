@@ -49,5 +49,6 @@
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="country_code">+7</string>
+    <string name="enter_name_on_rus">Введите имя на русском языке</string>
 
 </resources>
