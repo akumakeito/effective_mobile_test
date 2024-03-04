@@ -51,5 +51,6 @@
     <string name="country_code">+7</string>
     <string name="enter_name_on_rus">Введите имя на русском языке, без пробелов и символов</string>
     <string name="enter_surname_on_rus">Введите фамилию на русском языке, без пробелов и символов</string>
+    <string name="couldnt_be_blank">Поле не может быть пустым</string>
 
 </resources>

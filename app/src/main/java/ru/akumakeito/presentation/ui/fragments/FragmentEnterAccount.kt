@@ -50,9 +50,11 @@ class FragmentEnterAccount : Fragment() {
 
                 override fun afterTextChanged(s: Editable?) {
                     val text = s.toString()
-                    if (StringUtil.isOnlyRussianLetters(text) && text.isNotBlank()) {
+                    if (StringUtil.isOnlyRussianLetters(text)) {
                         inputNameLayout.error = null
                         userViewModel.setUser(name = text)
+                    } else if (text.isBlank()) {
+                        inputNameLayout.error = getString(R.string.couldnt_be_blank)
                     } else {
                         inputNameLayout.error = getString(R.string.enter_name_on_rus)
                     }
@@ -71,7 +73,7 @@ class FragmentEnterAccount : Fragment() {
 
                 override fun afterTextChanged(s: Editable?) {
                     val text = s.toString()
-                    if (StringUtil.isOnlyRussianLetters(text) && text.isNotBlank()) {
+                    if (StringUtil.isOnlyRussianLetters(text)) {
                         inputSurnameLayout.error = null
                         userViewModel.setUser(surname = text)
                     } else {

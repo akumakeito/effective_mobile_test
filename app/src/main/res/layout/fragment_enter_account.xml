@@ -39,7 +39,7 @@
         style="?attr/textInputOutlinedStyle"
         android:layout_marginHorizontal="@dimen/spacing16"
         android:layout_marginBottom="@dimen/spacing16"
-        android:hint="@string/name"
+
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/input_surname_layout"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"
@@ -47,6 +47,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eT_name"
+            android:hint="@string/name"
             style="?attr/textInputOutlinedStyle"
             android:inputType="textPersonName"
             android:layout_width="match_parent"
@@ -60,7 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing16"
         style="?attr/textInputOutlinedStyle"
-        android:hint="@string/surname"
         app:errorEnabled="true"
         android:layout_marginBottom="@dimen/spacing16"
         app:layout_constraintBottom_toTopOf="@id/input_phone_layout"
@@ -69,6 +69,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eT_surname"
+            android:hint="@string/surname"
             android:layout_width="match_parent"
             style="?attr/textInputOutlinedStyle"
             android:layout_height="match_parent"
@@ -82,9 +83,7 @@
         android:layout_height="wrap_content"
         style="?attr/textInputOutlinedStyle"
         android:layout_marginHorizontal="@dimen/spacing16"
-        android:hint="@string/phone_number"
         app:prefixText="@string/country_code"
-        app:placeholderText="___ ___-__-__"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"
         app:endIconMode="clear_text">
@@ -92,6 +91,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eT_phoneNumber"
             style="?attr/textInputOutlinedStyle"
+            android:hint="@string/phone_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="phone" />
