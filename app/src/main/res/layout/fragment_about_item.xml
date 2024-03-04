@@ -307,15 +307,14 @@
 
 
                 <ListView
-                    android:id="@+id/rv_characteristics"
+                    android:id="@+id/rv_productInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:clickable="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_characteristics_header"
-                    tools:listitem="@layout/characteristics_item" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_characteristics_header" />
 
                 <TextView
                     android:id="@+id/tv_ingredients_header"
@@ -326,7 +325,7 @@
                     android:text="@string/ingredients"
                     android:textSize="@dimen/txt24"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_characteristics" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_productInfo" />
 
                 <ImageView
                     android:id="@+id/btn_copy"

@@ -15,9 +15,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import ru.akumakeito.effectivemobile_test.R
 import ru.akumakeito.effectivemobile_test.databinding.FragmentAboutItemBinding
-import ru.akumakeito.presentation.ui.adapters.CharacteristicsItemAdapter
 import ru.akumakeito.presentation.ui.adapters.ItemImageAdapter
 import ru.akumakeito.presentation.ui.adapters.OnInteractionListener
+import ru.akumakeito.presentation.ui.adapters.ProductInfoItemAdapter
 import ru.akumakeito.presentation.viewmodel.ProductViewModel
 import ru.akumakeito.util.StringUtil.Companion.getAvailableString
 import ru.akumakeito.util.StringUtil.Companion.getFeedbackString
@@ -103,7 +103,9 @@ class FragmentAboutItem() : Fragment() {
                         R.string.price_with_unit, product.price.price, product.price.unit
                     )
 
-                    rvCharacteristics.adapter = CharacteristicsItemAdapter(requireContext(), product.info)
+                    val productInfoAdapter = ProductInfoItemAdapter(requireContext(), product.info)
+
+                    rvProductInfo.adapter = productInfoAdapter
 
 
                     tvHideOrShowIngr.setOnClickListener {
