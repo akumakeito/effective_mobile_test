@@ -129,7 +129,7 @@
         <item name="background">@color/white</item>
         <item name="boxBackgroundColor">@color/white</item>
         <item name="boxStrokeColor">@color/box_stroke_selector</item>
-        <item name="android:textAppearance">@style/DropDownTextAppearance</item>
+        <item name="android:textAppearance">@style/TextButtonTextAppearance</item>
     </style>
 
     <style name="ShapeAppearance.Material3.Corner.Small." parent="">
@@ -145,9 +145,16 @@
         <item name="android:textAppearance">@style/ButtonText</item>
     </style>
 
+    <style name="TextButtonTextAppearance" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">@dimen/txt14</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+    </style>
+
     <style name="Widget.App.TextButton.Icon" parent="Widget.Material3.Button.TextButton.Icon">
         <item name="android:height">@dimen/text_btn_height</item>
-        <item name="android:textAppearance">@style/DropDownTextAppearance</item>
+        <item name="android:textAppearance">@style/TextButtonTextAppearance</item>
         <item name="iconTint">@color/dark_grey</item>
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/dark_grey</item>
