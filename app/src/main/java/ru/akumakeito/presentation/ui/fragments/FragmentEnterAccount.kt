@@ -110,7 +110,7 @@ class FragmentEnterAccount : Fragment() {
 
 
             btnEnter.setOnClickListener {
-                userViewModel.createUser(eTName.text.toString(), eTSurname.text.toString(), eTPhoneNumber.text.toString())
+                userViewModel.createUser()
             }
 
             userViewModel.isSigned.observe(viewLifecycleOwner) {

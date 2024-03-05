@@ -1,6 +1,5 @@
 package ru.akumakeito.presentation.viewmodel
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -23,11 +22,12 @@ private val emptyUser = User(
     "",
     ""
 )
+
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val createUserUseCase: CreateUserUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
-    private val prefs : DataStore<Preferences>,
+    private val prefs: DataStore<Preferences>,
     private val deleteProductsUseCase: DeleteProductsUseCase,
     repository: UserRepository
 ) : ViewModel() {
@@ -35,16 +35,22 @@ class UserViewModel @Inject constructor(
     private val _userData = prefs.data.asLiveData()
     val userData = _userData
 
-    val isSigned = prefs.data.map { it[booleanPreferencesKey("user_signed_in")] ?: false }.asLiveData()
+    val isSigned =
+        prefs.data.map { it[booleanPreferencesKey("user_signed_in")] ?: false }.asLiveData()
 
     private val _userRegistryInput = MutableLiveData(emptyUser)
     val userRegistry = _userRegistryInput
 
-    fun createUser(name: String, surname: String, phoneNumber: String) =
+    fun createUser() =
         viewModelScope.launch {
-            Log.d("registrationprob", "vm name ${name} surname ${surname} phone ${phoneNumber}")
 
-            createUserUseCase.invoke(name, surname, phoneNumber)
+            _userRegistryInput.value?.let {
+                createUserUseCase.invoke(
+                    it.name,
+                    it.surname,
+                    it.phoneNumber
+                )
+            }
         }
 
     fun exit() = viewModelScope.launch {

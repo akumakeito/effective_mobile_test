@@ -49,7 +49,7 @@ class StringUtil (@ApplicationContext private val context: Context) {
         fun formatPhoneNumber(phoneNumber: String): String {
             return phoneNumber.replace(
                 Regex("(\\d{1})(\\d{3})(\\d{3})(\\d{2})(\\d{2})"),
-                "+$1 $2 $3-$4-$5"
+                "+7 $1 $2 $3-$4-$5"
             )
         }
 

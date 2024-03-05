@@ -120,6 +120,7 @@
         <item name="android:textAppearance">@style/OutlinedInputText</item>
         <item name="boxBackgroundColor">@color/light_grey</item>
         <item name="boxStrokeWidth">0dp</item>
+        <item name="prefixTextAppearance">@style/OutlinedInputText</item>
 
     </style>
 
