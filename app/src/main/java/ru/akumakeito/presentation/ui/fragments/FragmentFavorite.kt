@@ -53,6 +53,7 @@ class FragmentFavorite : Fragment() {
         tabLayout = binding.tabLayout
 
         viewPagerAdapter = FavoritePagerAdapter(this)
+        viewPager.isUserInputEnabled = false
         viewPager.adapter = viewPagerAdapter
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
