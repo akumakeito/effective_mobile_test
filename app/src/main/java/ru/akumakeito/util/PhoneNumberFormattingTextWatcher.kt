@@ -3,7 +3,7 @@ package ru.akumakeito.util
 import android.text.Editable
 import android.text.TextWatcher
 
-class PhoneNumberFormattingTextWatcher : TextWatcher {
+class PhoneNumberFormattingTextWatcher() : TextWatcher {
 
     private var isFormatting: Boolean = false
     private var isDeleting: Boolean = false
@@ -23,26 +23,26 @@ class PhoneNumberFormattingTextWatcher : TextWatcher {
         val formatted = StringBuilder()
 
         for (i in numericOnly.indices) {
-
             if (i >= 0 && i < 4) {
                 formatted.append(numericOnly[i])
             }
-            if (i == 4) {
+            if (i == 3) {
                 formatted.append(" ")
+
+                if (i >= 4 && i <= 7) {
+                    formatted.append(numericOnly[i])
+                }
+                if (i == 7 || i == 9) {
+                    formatted.append("-")
+                }
+                if (i > 7 && i < 11) {
+                    formatted.append(numericOnly[i])
+                }
             }
-            if (i > 4 && i <= 7) {
-                formatted.append(numericOnly[i])
-            }
-            if (i == 7 || i == 9) {
-                formatted.append("-")
-            }
-            if (i > 7 && i < 11) {
-                formatted.append(numericOnly[i])
-            }
+
+            s.replace(0, s.length, formatted)
+
+            isFormatting = false
         }
-
-        s.replace(0, s.length, formatted)
-
-        isFormatting = false
     }
 }

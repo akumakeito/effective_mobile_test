@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -83,9 +82,29 @@ class FragmentEnterAccount : Fragment() {
 
             })
 
-            eTPhoneNumber.addTextChangedListener {
-                userViewModel.setUser(phoneNumber = eTPhoneNumber.text.toString())
-            }
+            eTPhoneNumber.addTextChangedListener(object : TextWatcher {
+                var lengthBefore = 0
+                override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    lengthBefore = s.toString().length
+                }
+
+                override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                    if (lengthBefore < s.length) {
+                        if (s.length == 3 || s.length == 7 || s.length == 10) s.append(" ")
+                    }
+
+                    if (s.length == 13) {
+                        userViewModel.setUser(phoneNumber = eTPhoneNumber.text.toString().filter { it.isDigit() })
+                    }
+                }
+            })
+
+
 
             btnEnter.setOnClickListener {
                 userViewModel.createUser(eTName.text.toString(), eTSurname.text.toString(), eTPhoneNumber.text.toString())
