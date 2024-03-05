@@ -1,11 +1,9 @@
 package ru.akumakeito.util
 
 import android.content.Context
-import android.widget.TextView
-import dagger.hilt.android.qualifiers.ApplicationContext
 import ru.akumakeito.effectivemobile_test.R
 
-class StringUtil (@ApplicationContext private val context: Context) {
+class StringUtil {
 
     companion object {
         fun getAvailableString(count: Int): String {
@@ -47,15 +45,10 @@ class StringUtil (@ApplicationContext private val context: Context) {
             if ( context.getString(R.string.hide) == isHide)  context.getString(R.string.show) else context.getString(R.string.hide)
 
         fun formatPhoneNumber(phoneNumber: String): String {
-            return phoneNumber.replace(
-                Regex("(\\d{1})(\\d{3})(\\d{3})(\\d{2})(\\d{2})"),
-                "+7 $1 $2 $3-$4-$5"
+            return phoneNumber.replaceFirst(
+                Regex("(\\d{3})(\\d{3})(\\d{2})(\\d{2})"),
+                "+7 $1 $2 $3 $4"
             )
-        }
-
-        fun displayPhoneNumber(textView: TextView, phoneNumber: String) {
-            val formattedPhoneNumber = formatPhoneNumber(phoneNumber)
-            textView.text = formattedPhoneNumber
         }
 
         fun isOnlyRussianLetters(input: String): Boolean {
