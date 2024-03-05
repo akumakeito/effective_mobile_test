@@ -91,9 +91,10 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eT_phoneNumber"
             style="?attr/textInputOutlinedStyle"
-            android:hint="@string/phone_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:maxLength="13"
+            android:hint="@string/phone_number"
             android:inputType="phone" />
 
     </com.google.android.material.textfield.TextInputLayout>

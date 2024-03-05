@@ -101,6 +101,9 @@ class FragmentEnterAccount : Fragment() {
                     if (s.length == 13) {
                         userViewModel.setUser(phoneNumber = eTPhoneNumber.text.toString().filter { it.isDigit() })
                     }
+                    if(s.length > 13) {
+
+                    }
                 }
             })
 
