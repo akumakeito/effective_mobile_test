@@ -39,7 +39,6 @@
         style="?attr/textInputOutlinedStyle"
         android:layout_marginHorizontal="@dimen/spacing16"
         android:layout_marginBottom="@dimen/spacing16"
-
         app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@id/input_surname_layout"
         app:endIconDrawable="@drawable/icon_type_small_close__state_default"
@@ -49,7 +48,7 @@
             android:id="@+id/eT_name"
             android:hint="@string/name"
             style="?attr/textInputOutlinedStyle"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapSentences"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -73,7 +72,7 @@
             android:layout_width="match_parent"
             style="?attr/textInputOutlinedStyle"
             android:layout_height="match_parent"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName|textCapSentences" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
