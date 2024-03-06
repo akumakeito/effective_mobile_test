@@ -1,7 +1,7 @@
 package ru.akumakeito.effectivemobile_test.data.repository
 
+import android.annotation.SuppressLint
 import android.content.Context
-import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,12 +21,11 @@ import javax.inject.Inject
 class ProductsRepositoryImpl @Inject constructor(
     private val dao: ProductDao,
     private val api: ProductApiService,
-    private val gson: Gson,
     private val imageDeserializer: ImageDeserializer,
     @ApplicationContext private val context: Context,
 ) : ProductRepository {
 
-    override val favoriteProducts: Flow<List<Product>> = dao.getFavoriteProductsById(true)
+    override val favoriteProducts: Flow<List<Product>> = dao.getFavoriteProducts(true)
         .map(List<ProductEntity>::toProduct)
         .flowOn(Dispatchers.IO)
 
@@ -62,6 +61,7 @@ class ProductsRepositoryImpl @Inject constructor(
     }
 
 
+    @SuppressLint("DiscouragedApi")
     override suspend fun addImageListToProduct(jsonString: String) {
         val flagList = imageDeserializer.deserialize(jsonString)
         val res = context.resources
